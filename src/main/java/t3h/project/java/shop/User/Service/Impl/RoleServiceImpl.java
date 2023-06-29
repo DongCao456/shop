@@ -8,13 +8,15 @@ import t3h.project.java.shop.User.Model.Role;
 import t3h.project.java.shop.User.Repository.RoleRepository;
 import t3h.project.java.shop.User.Service.RoleService;
 
+import java.util.Optional;
+
 @Service
 public class RoleServiceImpl extends GenericServiceImpl<Role,Long> implements RoleService {
 
     @Autowired
     private RoleRepository roleRepository;
     @Override
-    public Role findByName(String name) {
+    public Optional<Role> findByName(String name) {
         return roleRepository.findByName(name);
     }
 
