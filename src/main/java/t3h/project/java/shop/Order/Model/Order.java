@@ -14,7 +14,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "Order")
+@Table(name = "OrderCC")
 public class Order extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -22,13 +22,19 @@ public class Order extends AbstractEntity {
     @JsonIgnore
     private User user;
 
-    @OneToMany(mappedBy = "order",fetch = FetchType.LAZY)
-    private Set<OrderItems> orderItems=new HashSet<>();
+    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
+
+    private Set<OrderItems> orderItemsList=new HashSet<>();
 
     private LocalDate deliveryDate;
     private Float totalCost;
     private String status;
 
+    public Order addItems(OrderItems orderItems){
+        orderItems.setOrder(this);
+        this.orderItemsList.add(orderItems);
 
+        return this;
+    }
 
 }

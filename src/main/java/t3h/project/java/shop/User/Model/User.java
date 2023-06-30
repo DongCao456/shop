@@ -15,6 +15,11 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "User")
+@NamedEntityGraph(name = "user-cart-role-orders",attributeNodes = {
+        @NamedAttributeNode("carts"),
+        @NamedAttributeNode("roles"),
+        @NamedAttributeNode("orders")
+})
 public class User extends AbstractEntity {
 
     private String username;
@@ -34,7 +39,6 @@ public class User extends AbstractEntity {
     private Set<Role> roles=new HashSet<>();
 
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
-    @JsonIgnore
     private Set<Order> orders=new HashSet<>();
 
 
