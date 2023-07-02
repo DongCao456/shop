@@ -20,6 +20,7 @@ import t3h.project.java.shop.Product.Repository.ProductRepository;
 import t3h.project.java.shop.Product.Service.ProductService;
 import t3h.project.java.shop.Utils.MapDtoToModel;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -41,6 +42,16 @@ public class ProductServiceImpl extends GenericServiceImpl<Product,Long> impleme
         this.modelMapper = modelMapper;
     }
 
+    @Override
+    public void saveOrUpdate(CreateProductDto productDto) {
+        Brand brand = brandService.findBrandByName(productDto.getBrandName());
+
+        List<RoleEntity> roleEntities = iRoleDao.findByListId(userDTO.getRoleIds());
+        UserEntity userEntity = modelMapper.map(userDTO,UserEntity.class);
+        userEntity.setRoleEntities(new HashSet<>(roleEntities));
+        userEntity.setDepartmentEntity(departmentEntity);
+        iUserDao.saveOrUpdate(userEntity);
+    }
     @Override
     public Product saveNew(CreateProductDto dto) {
         Product model=new Product();
@@ -128,5 +139,12 @@ public class ProductServiceImpl extends GenericServiceImpl<Product,Long> impleme
         response.setMessage("success");
         response.setData(pageData);
         return response;
+    }
+
+    @Override
+    public CreateProductDto findProductById(Long id) {
+        Product product = productRepository.findProductById(id);
+        CreateProductDto productDto = modelMapper.map(product, CreateProductDto.class);
+        return productDto;
     }
 }

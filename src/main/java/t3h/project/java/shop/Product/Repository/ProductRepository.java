@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import t3h.project.java.shop.Product.Dto.CreateProductDto;
 import t3h.project.java.shop.Product.Model.Product;
 import t3h.project.java.shop.Product.Model.Request.ProductFilterRequest;
 
@@ -32,4 +33,6 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
             "AND (:#{#condition.sizeId} is null or b.id = :#{#condition.brandId} )"
     )
     Page<Product> findAllByFilter(@Param("condition") ProductFilterRequest filterRequest, Pageable pageable);
+    @Query(value = "select p from Product p where p.id = :id")
+    Product findProductById(@Param("id") Long id);
 }

@@ -9,7 +9,7 @@ import java.util.Set;
 @Getter
 @Setter
 public class CreateCateDto {
-
+    private Integer id;
     private String name;
     private String description;
     private Set<String> listBrandsName=new HashSet<>();
