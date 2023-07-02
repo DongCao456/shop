@@ -6,4 +6,5 @@ import t3h.project.java.shop.Order.Model.OrderItems;
 
 @Repository
 public interface OrderItemsRepository extends JpaRepository<OrderItems,Long> {
+
 }

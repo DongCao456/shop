@@ -1,12 +1,12 @@
 package t3h.project.java.shop.Product.Dto;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 public class CreateProductDto {
-
+    private Integer id;
     private String name;
     private String description;
     private Float price;
