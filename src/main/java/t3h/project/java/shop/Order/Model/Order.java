@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import t3h.project.java.shop.CommonData.model.AbstractEntity;
+import t3h.project.java.shop.Customer.Model.Customer;
 import t3h.project.java.shop.User.Model.User;
 
 import java.time.LocalDate;
@@ -21,6 +22,11 @@ public class Order extends AbstractEntity {
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "customer_id")
+    @JsonIgnore
+    private Customer customer;
 
     @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
 
