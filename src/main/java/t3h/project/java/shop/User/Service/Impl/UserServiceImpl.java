@@ -13,6 +13,7 @@ import t3h.project.java.shop.User.Service.RoleService;
 import t3h.project.java.shop.User.Service.UserService;
 import t3h.project.java.shop.Utils.MapDtoToModel;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -44,5 +45,10 @@ public class UserServiceImpl extends GenericServiceImpl<User,Long> implements Us
     @Override
     public Optional<User> findByUsername(String name) {
         return userRepository.findByUsername(name);
+    }
+
+    @Override
+    public List<User> findList() {
+        return userRepository.findAll();
     }
 }

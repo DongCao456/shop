@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import t3h.project.java.shop.CommonData.model.AbstractEntity;
+import t3h.project.java.shop.Customer.Model.Customer;
 import t3h.project.java.shop.Product.Model.Product;
 import t3h.project.java.shop.User.Model.User;
 
@@ -26,6 +27,11 @@ public class CartItem extends AbstractEntity {
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "customer_id")
+    @JsonIgnore
+    private Customer customer;
 
     private Integer quantity;
     private Float price;

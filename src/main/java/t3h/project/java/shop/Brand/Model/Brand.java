@@ -26,6 +26,7 @@ public class Brand extends AbstractEntity {
     private Set<Category> categories=new HashSet<>();
 
     @OneToMany(mappedBy = "brand",fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Product> products=new HashSet<>();
 
 

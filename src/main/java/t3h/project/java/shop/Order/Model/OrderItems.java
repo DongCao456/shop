@@ -23,11 +23,13 @@ public class OrderItems extends AbstractEntity {
                     { @JoinColumn(name = "product_id", referencedColumnName = "id") })
     private Product product;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "order_id")
     @JsonIgnore
     private Order order;
 
     private Integer quantity;
     private Float price;
+
+
 }

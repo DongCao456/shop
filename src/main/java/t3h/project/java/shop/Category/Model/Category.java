@@ -25,6 +25,7 @@ public class Category extends AbstractEntity {
 
     @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST},fetch = FetchType.EAGER)
     @JoinTable(name = "cate_brand",joinColumns = @JoinColumn(name = "cate_id"),inverseJoinColumns = @JoinColumn(name = "brand_id"))
+
     private Set<Brand> brands=new HashSet<>();
 
     public Category addBrand(Brand brand){

@@ -29,12 +29,10 @@ public class Product extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "band_id")
-    @JsonIgnore
     private Brand brand;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cate_id")
-    @JsonIgnore
     private Category category;
 
 

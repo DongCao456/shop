@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import t3h.project.java.shop.CommonData.model.AbstractEntity;
+import t3h.project.java.shop.Customer.Model.Customer;
 import t3h.project.java.shop.User.Model.User;
 
 import java.time.LocalDate;
@@ -14,7 +15,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "Order")
+@Table(name = "OrderCC")
 public class Order extends AbstractEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -22,13 +23,24 @@ public class Order extends AbstractEntity {
     @JsonIgnore
     private User user;
 
-    @OneToMany(mappedBy = "order",fetch = FetchType.LAZY)
-    private Set<OrderItems> orderItems=new HashSet<>();
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "customer_id")
+    @JsonIgnore
+    private Customer customer;
+
+    @OneToMany(mappedBy = "order",cascade = CascadeType.ALL)
+
+    private Set<OrderItems> orderItemsList=new HashSet<>();
 
     private LocalDate deliveryDate;
     private Float totalCost;
     private String status;
 
+    public Order addItems(OrderItems orderItems){
+        orderItems.setOrder(this);
+        this.orderItemsList.add(orderItems);
 
+        return this;
+    }
 
 }
