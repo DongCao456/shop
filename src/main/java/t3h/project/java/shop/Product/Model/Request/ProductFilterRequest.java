@@ -11,6 +11,8 @@ public class ProductFilterRequest {
     private Float price;
     private Integer quantity;
     private String image;
+    private String cateName;
+    private String brandName;
+    private String brandId;
     private Integer categoryId;
-    private Integer brandId;
 }
