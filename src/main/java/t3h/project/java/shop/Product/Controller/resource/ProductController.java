@@ -13,7 +13,6 @@ import t3h.project.java.shop.Product.Service.ProductService;
 import java.util.List;
 
 @Controller
-
 public class ProductController {
 
 }

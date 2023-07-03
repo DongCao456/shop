@@ -13,6 +13,6 @@ import java.util.Optional;
 public interface CateRepository extends JpaRepository<Category,Long> {
 
     Optional<Category> findByName(String name);
-    @Query(value = "select b from Category c where c.name = :name")
-    Category findCategoryByName(@Param("name")String name);
+    @Query(value = "SELECT c FROM Category c WHERE LOWER(c.name) = LOWER(:name)")
+    Category findCategoryByName(@Param("name") String name);
 }

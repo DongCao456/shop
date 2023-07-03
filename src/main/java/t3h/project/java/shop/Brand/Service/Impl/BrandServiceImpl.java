@@ -55,9 +55,8 @@ public class BrandServiceImpl extends GenericServiceImpl<Brand,Long> implements 
     }
 
     @Override
-    public CreateBrandDto findBrandByName(String name) {
+    public Brand findBrandByName(String name) {
         Brand brand = repository.findBrandByName(name);
-        CreateBrandDto brandDto = modelMapper.map(brand, CreateBrandDto.class);
-        return brandDto;
+        return brand;
     }
 }

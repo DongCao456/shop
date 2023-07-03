@@ -1,5 +1,6 @@
 package t3h.project.java.shop.Product.Controller;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -38,9 +39,15 @@ public class AdminController {
         return "admin/phone-create";
     }
     @PostMapping("/save")
-    public String saveUser(@ModelAttribute(name = "product") CreateProductDto productDto){
-        productService.
-        return "redirect:/user";
+    public String saveProduct(@ModelAttribute(name = "product")CreateProductDto productDto){
+        productService.insertProduct(productDto);
+        return "redirect:/admin/phone";
+    }
+    @PostMapping("/update")
+    public String updateProduct(@ModelAttribute(name = "product")CreateProductDto productDto){
+        System.out.println(productDto.getId());
+        productService.updateProduct(productDto);
+        return "redirect:/admin/phone";
     }
     @GetMapping("/form-update-phone/{id}")
     public String getFormUpdatePhone(@PathVariable("id") Long id, Model model){
@@ -53,6 +60,11 @@ public class AdminController {
         List<CreateCateDto> cateDtos = cateService.getAll();
         model.addAttribute("cates", cateDtos);
         return "admin/phone-update";
+    }
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Long id){
+        productService.deleteById(id);
+        return "redirect:/admin/phone";
     }
     @GetMapping("/phone")
     public String phone(){

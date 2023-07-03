@@ -7,8 +7,10 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import t3h.project.java.shop.Brand.Dto.CreateBrandDto;
 import t3h.project.java.shop.Brand.Model.Brand;
 import t3h.project.java.shop.Brand.Service.BrandService;
+import t3h.project.java.shop.Category.Dto.CreateCateDto;
 import t3h.project.java.shop.Category.Model.Category;
 import t3h.project.java.shop.Category.Service.CateService;
 import t3h.project.java.shop.CommonData.generic.GenericServiceImpl;
@@ -43,14 +45,16 @@ public class ProductServiceImpl extends GenericServiceImpl<Product,Long> impleme
     }
 
     @Override
-    public void saveOrUpdate(CreateProductDto productDto) {
+    public void insertProduct(CreateProductDto productDto) {
         Brand brand = brandService.findBrandByName(productDto.getBrandName());
-
-        List<RoleEntity> roleEntities = iRoleDao.findByListId(userDTO.getRoleIds());
-        UserEntity userEntity = modelMapper.map(userDTO,UserEntity.class);
-        userEntity.setRoleEntities(new HashSet<>(roleEntities));
-        userEntity.setDepartmentEntity(departmentEntity);
-        iUserDao.saveOrUpdate(userEntity);
+        Category category = cateService.findCateByName(productDto.getCateName());
+        Product product = modelMapper.map(productDto, Product.class);
+        product.setCategory(category);
+        System.out.println(category);
+        product.setBrand(brand);
+        System.out.println(brand);
+        System.out.println(product);
+        productRepository.save(product);
     }
     @Override
     public Product saveNew(CreateProductDto dto) {
@@ -147,4 +151,18 @@ public class ProductServiceImpl extends GenericServiceImpl<Product,Long> impleme
         CreateProductDto productDto = modelMapper.map(product, CreateProductDto.class);
         return productDto;
     }
+    @Override
+    public void deleteById(Long id){
+        productRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateProduct(CreateProductDto productDto) {
+        Product product = modelMapper.map(productDto, Product.class);
+        product.setId(productDto.getId());
+        product.setBrand(brandService.findBrandByName(productDto.getBrandName()));
+        product.setCategory(cateService.findCateByName(productDto.getCateName()));
+        productRepository.save(product);
+    }
+
 }

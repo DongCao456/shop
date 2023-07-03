@@ -60,9 +60,8 @@ public class CateServiceImpl extends GenericServiceImpl<Category,Long> implement
     }
 
     @Override
-    public CreateCateDto findCateByName(String name) {
+    public Category findCateByName(String name) {
         Category category = cateRepository.findCategoryByName(name);
-        CreateCateDto cateDto = modelMapper.map(category, CreateCateDto.class);
-        return cateDto;
+        return category;
     }
 }

@@ -14,6 +14,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "Category")
+@ToString
 public class Category extends AbstractEntity {
     private String name;
     private String description;

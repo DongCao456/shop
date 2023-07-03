@@ -18,6 +18,6 @@ import java.util.Optional;
 public interface BrandRepository extends JpaRepository<Brand,Long> {
 
     Optional<Brand> findByName(String name);
-    @Query(value = "select b from Brand b where b.name = :name")
-    Brand findBrandByName(@Param("name")String name);
+    @Query(value = "SELECT b FROM Brand b WHERE LOWER(b.name) = LOWER(:name)")
+    Brand findBrandByName(@Param("name") String name);
 }

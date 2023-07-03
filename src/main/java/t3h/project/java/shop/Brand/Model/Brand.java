@@ -14,6 +14,7 @@ import java.util.Set;
 @Data
 @Entity
 @Table(name = "Brand")
+@ToString
 public class Brand extends AbstractEntity {
 
     private String name;

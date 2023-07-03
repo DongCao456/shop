@@ -363,7 +363,7 @@
                         '<td>' + data.cateName + '</td>';
                     row +=
                         '<td> <a class="btn btn-warning" onclick="editProduct(' + data.id + ')" href="#">Sửa</a> ' +
-                        '<a style="margin-left: 10%" class="btn btn-danger" onclick="editProduct(' + data.id + ')" href="#">Xóa</a> </td>' +
+                        '<a style="margin-left: 10%" class="btn btn-danger" onclick="deleteProduct(' + data.id + ')" href="#">Xóa</a> </td>' +
                         '</tr>'
                     $('#tableDate').append(row);
                 }
@@ -395,8 +395,11 @@
             }
         })
     }
-    function editProduct(phoneId) {
-        window.location.href = "http://localhost:8080/product/form-update-product/" + phoneId;
+    function editProduct(id) {
+        window.location.href = "http://localhost:8080/admin/form-update-phone/" + id;
+    }
+    function deleteProduct(id) {
+        window.location.href = "http://localhost:8080/admin/delete/" + id;
     }
 
     function searchCondition(page,size){

@@ -12,5 +12,5 @@ public interface BrandService extends GenericService<Brand,Long> {
     List<CreateBrandDto> getAll();
 
     Brand createBrand(CreateBrandDto brand);
-    CreateBrandDto findBrandByName(String name);
+    Brand findBrandByName(String name);
 }

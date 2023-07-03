@@ -14,5 +14,7 @@ public interface ProductService extends GenericService<Product,Long> {
     BaseResponse<Page<CreateProductDto>> getAllByCategory(ProductFilterRequest filterRequest, int page, int size);
     BaseResponse<Page<CreateProductDto>> getAll(ProductFilterRequest filterRequest, int page, int size);
     CreateProductDto findProductById(Long id);
-    public void saveOrUpdate(CreateProductDto productDto);
+    public void insertProduct(CreateProductDto productDto);
+    public void deleteById(Long id);
+    public void updateProduct(CreateProductDto productDto);
 }

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 @Setter
 public class CreateBrandDto {
     private Integer id;
-
     private String name;
     private String description;
     private String url;
