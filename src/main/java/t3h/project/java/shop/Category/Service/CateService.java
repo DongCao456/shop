@@ -17,4 +17,5 @@ public interface CateService extends GenericService<Category,Long> {
 
     Category createCateDto(CreateCateDto createCateDto);
     Category findCateByName(String name);
+    Category findCateById(Long id);
 }

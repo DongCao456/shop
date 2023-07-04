@@ -9,17 +9,17 @@ import t3h.project.java.shop.Product.Model.Request.ProductFilterRequest;
 import t3h.project.java.shop.Product.Service.ProductService;
 
 @RestController
-@RequestMapping("/tablet")
-public class TabletController {
+@RequestMapping("/laptop")
+public class LaptopResource {
     private final ProductService service;
-    public TabletController(ProductService service) {
+    public LaptopResource(ProductService service) {
         this.service = service;
     }
     @PostMapping()
     public ResponseEntity<BaseResponse<Page<CreateProductDto>>> getAll(@RequestBody ProductFilterRequest filterRequest,
                                                                  @RequestParam(name = "page",required = false,defaultValue = "0") int page,
                                                                  @RequestParam(name = "size",required = false,defaultValue = "10") int size){
-        filterRequest.setCategoryId(3);
+        filterRequest.setCategoryId(2);
         return ResponseEntity.ok(service.getAllByCategory(filterRequest, page, size));
     }
 

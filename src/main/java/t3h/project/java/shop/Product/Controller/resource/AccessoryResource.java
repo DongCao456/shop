@@ -10,9 +10,9 @@ import t3h.project.java.shop.Product.Service.ProductService;
 
 @RestController
 @RequestMapping("/accessory")
-public class AccessoryController {
+public class AccessoryResource {
     private final ProductService service;
-    public AccessoryController(ProductService service) {
+    public AccessoryResource(ProductService service) {
         this.service = service;
     }
     @PostMapping()

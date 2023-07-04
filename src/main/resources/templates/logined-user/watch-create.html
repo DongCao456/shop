@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <title>Insert</title>
+</head>
+<body>
+<div class="container">
+    <h1>Thêm mới</h1>
+    <hr>
+    <form action="#" th:action="@{/admin/saveWatch}" th:object="${product}" method="POST">
+        <label for="inputName">Tên đồng hồ: </label>
+        <input type="text" th:field="*{name}" id="inputName" placeholder="Tên điện thoại" class="form-control mb-4 col-4">
+
+        <label for="inputDesc">Mô tả: </label>
+        <input type="text" th:field="*{description}" id="inputDesc" placeholder="Mô tả" class="form-control mb-4 col-4">
+
+        <label for="inputPrice">Giá đồng hồ: </label>
+        <input type="number" th:field="*{price}" placeholder="Giá" id="inputPrice" class="form-control mb-4 col-4">
+
+        <label for="inputQuantity">Số lượng:</label>
+        <input type="number" id="inputQuantity" th:field="*{quantity}" placeholder="Số lượng" class="form-control mb-4 col-4">
+
+        <label for="inputImage">Link hình ảnh:</label>
+        <input type="text" th:field="*{image}" id="inputImage" placeholder="Link hình ảnh" class="form-control mb-4 col-4">
+
+        <label for="inputCategory">Danh mục/Loại:</label>
+        <select class="form-select form-control mb-4 col-4" id="inputCategory" th:field="*{cateName}" aria-label="Default select example">
+            <option th:each="cate : ${cates}" th:value="${cate.name}" th:utext="${cate.name}" />
+        </select>
+
+        <label for="inputBrand">Thương hiệu:</label>
+        <select class="form-select form-control mb-4 col-4" id="inputBrand" th:field="*{brandName}" aria-label="Default select example">
+            <option th:each="br : ${brands}" th:value="${br.name}" th:utext="${br.name}" />
+        </select>
+
+        <button type="submit" class="btn btn-info col-2">Cập nhật</button>
+    </form>
+    <hr>
+    <a th:href="@{/admin/watch}">Quay lại</a>
+</div>
+</body>
+</html>

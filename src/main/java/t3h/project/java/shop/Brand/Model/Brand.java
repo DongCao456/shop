@@ -20,6 +20,7 @@ public class Brand extends AbstractEntity {
     private String name;
     private String description;
     private String url;
+    private String image;
 
     @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude

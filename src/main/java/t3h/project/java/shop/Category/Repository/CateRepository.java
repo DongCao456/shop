@@ -15,4 +15,7 @@ public interface CateRepository extends JpaRepository<Category,Long> {
     Optional<Category> findByName(String name);
     @Query(value = "SELECT c FROM Category c WHERE LOWER(c.name) = LOWER(:name)")
     Category findCategoryByName(@Param("name") String name);
+
+    @Query(value = "select c from Category c where c.id = :id")
+    Category findCategoryById(@Param("id") Long id);
 }

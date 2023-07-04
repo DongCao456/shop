@@ -10,17 +10,17 @@
 <div class="container">
     <h1>Cập nhật</h1>
     <hr>
-    <form action="#" th:action="@{/admin/update}" th:object="${product}" method="POST">
+    <form action="#" th:action="@{/admin/updateAccessory}" th:object="${product}" method="POST">
         <input type="hidden" th:field="*{id}" id="ID" placeholder="ID" class="form-control mb-4 col-4">
 
-        <label for="inputName">Tên điện thoại: </label>
-        <input type="text" th:field="*{name}" id="inputName" placeholder="Tên điện thoại" class="form-control mb-4 col-4">
+        <label for="inputName">Tên phụ kiện: </label>
+        <input type="text" th:field="*{name}" id="inputName" placeholder="Tên phụ kiện" class="form-control mb-4 col-4">
 
         <label for="inputDesc">Mô tả: </label>
         <input type="text" th:field="*{description}" id="inputDesc" placeholder="Mô tả" class="form-control mb-4 col-4">
 
-        <label for="inputPrice">Giá điện thoại: </label>
-        <input type="number" th:field="*{price}" placeholder="Giá" id="inputPrice" class="form-control mb-4 col-4">
+        <label for="inputPrice">Giá phụ kiện: </label>
+        <input type="number" th:field="*{price}" placeholder="Giá phụ kiện" id="inputPrice" class="form-control mb-4 col-4">
 
         <label for="inputQuantity">Số lượng:</label>
         <input type="number" id="inputQuantity" th:field="*{quantity}" placeholder="Số lượng" class="form-control mb-4 col-4">
@@ -41,7 +41,7 @@
         <button type="submit" class="btn btn-info col-2">Cập nhật</button>
     </form>
     <hr>
-    <a th:href="@{/admin/phone}">Quay lại</a>
+    <a th:href="@{/admin/accessory}">Quay lại</a>
 </div>
 </body>
 </html>

@@ -44,6 +44,9 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
             "(:#{#condition.cateName} is null or lower(b.name) = :#{#condition.brandName}) "
     )
     Page<Product> findAllByBrand(@Param("condition") ProductFilterRequest filterRequest, Pageable pageable);
-    @Query(value = "select p from Product p where p.id = :id")
+    @Query(value = "select p from Product p " +
+                   "inner join p.category c " +
+            "inner join p.brand b " +
+            "where p.id = :id")
     Product findProductById(@Param("id") Long id);
 }

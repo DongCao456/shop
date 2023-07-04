@@ -48,7 +48,9 @@
                                 <li><a th:href="@{/admin/tablet}">Tablet</a></li>
                                 <li><a th:href="@{/admin/watch}">Watch</a></li>
                                 <li><a th:href="@{/admin/accessory}">Phụ kiện</a></li>
+                                <li><a th:href="@{/admin/brand}">Thương hiệu</a></li>
                                 <li><a th:href="@{/admin/news}">Tin tức</a></li>
+                                <li><a th:href="@{/admin/account}">Tài khoản</a></li>
                             </ul>
                         </div>
                     </div>
@@ -168,6 +170,7 @@
 
                         </tbody>
                     </table>
+                    <a th:href="@{/admin/form-create-laptop}" class="btn btn-primary btn-sm mb-3"> Thêm sản phẩm</a>
                     <nav aria-label="...">
                         <ul class="pagination" id="pageId" style="float: right;">
                             <!--            <li class="page-item">-->
@@ -190,28 +193,28 @@
                 <ul id="braldLogo">
                     <li>
                         <ul class="brand_item">
-                            <li>
-                                <a href="#">
+                            <li>shoponlineproject
+                                <a href="https://www.apple.com/vn/">
                                     <div class="brand-logo"><img th:src="@{/images/brands/apple.png}" alt=""></div>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    <div class="brand-logo"><img th:src="@{/images/brands/dell.png}" alt=""></div>
+                                <a href="https://www.samsung.com/vn/">
+                                    <div class="brand-logo"><img th:src="@{/images/brands/samsung.png}" alt=""></div>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="https://www.mi.com/vn">
                                     <div class="brand-logo"><img th:src="@{/images/brands/xiaomi.png}" alt=""></div>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="https://www.acer.com/vn-vi">
                                     <div class="brand-logo"><img th:src="@{/images/brands/acer.png}" alt=""></div>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="https://www.logitech.com/vi-vn">
                                     <div class="brand-logo"><img th:src="@{/images/brands/logitech.png}" alt=""></div>
                                 </a>
                             </li>
@@ -220,27 +223,27 @@
                     <li>
                         <ul class="brand_item">
                             <li>
-                                <a href="#">
+                                <a href="https://www.lenovo.com/vn/vn/">
                                     <div class="brand-logo"><img th:src="@{/images/brands/lenovo.png}" alt=""></div>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="https://www.oppo.com/vn/">
                                     <div class="brand-logo"><img th:src="@{/images/brands/oppo.png}" alt=""></div>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="https://www.asus.com/vn/">
                                     <div class="brand-logo"><img th:src="@{/images/brands/asus.png}" alt=""></div>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="https://vn.msi.com/">
                                     <div class="brand-logo"><img th:src="@{/images/brands/msi.png}" alt=""></div>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="https://www.dell.com/en-vn">
                                     <div class="brand-logo"><img th:src="@{/images/brands/dell.png}" alt=""></div>
                                 </a>
                             </li>
@@ -362,7 +365,7 @@
                         '<td>' + data.cateName + '</td>';
                     row +=
                         '<td> <a class="btn btn-warning" onclick="editProduct(' + data.id + ')" href="#">Sửa</a> ' +
-                        '<a style="margin-left: 10%" class="btn btn-danger" onclick="editProduct(' + data.id + ')" href="#">Xóa</a> </td>' +
+                        '<a style="margin-left: 10%" class="btn btn-danger" onclick="deleteProduct(' + data.id + ')" href="#">Xóa</a> </td>' +
                         '</tr>'
                     $('#tableDate').append(row);
                 }
@@ -394,8 +397,11 @@
             }
         })
     }
-    function editProduct(phoneId) {
-        window.location.href = "http://localhost:8080/product/form-update-product/" + phoneId;
+    function editProduct(id) {
+        window.location.href = "http://localhost:8080/admin/form-update-laptop/" + id;
+    }
+    function deleteProduct(id) {
+        window.location.href = "http://localhost:8080/admin/deleteLaptop/" + id;
     }
 
     function searchCondition(page,size){

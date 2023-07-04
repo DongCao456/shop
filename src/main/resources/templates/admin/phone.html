@@ -43,12 +43,14 @@
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
                                 <li><a th:href="@{/admin/index}">Home</a></li>
-                                <li class="active"><a th:href="@{/templates/admin/phone}">Phone</a></li>
+                                <li class="active"><a th:href="@{/admin/phone}">Phone</a></li>
                                 <li><a th:href="@{/admin/laptop}">Laptop</a></li>
                                 <li><a th:href="@{/admin/tablet}">Tablet</a></li>
                                 <li><a th:href="@{/admin/watch}">Watch</a></li>
                                 <li><a th:href="@{/admin/accessory}">Phụ kiện</a></li>
+                                <li><a th:href="@{/admin/brand}">Thương hiệu</a></li>
                                 <li><a th:href="@{/admin/news}">Tin tức</a></li>
+                                <li><a th:href="@{/admin/account}">Tài khoản</a></li>
                             </ul>
                         </div>
                     </div>
@@ -191,28 +193,28 @@
                 <ul id="braldLogo">
                     <li>
                         <ul class="brand_item">
-                            <li>
-                                <a href="#">
+                            <li>shoponlineproject
+                                <a href="https://www.apple.com/vn/">
                                     <div class="brand-logo"><img th:src="@{/images/brands/apple.png}" alt=""></div>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
-                                    <div class="brand-logo"><img th:src="@{/images/brands/dell.png}" alt=""></div>
+                                <a href="https://www.samsung.com/vn/">
+                                    <div class="brand-logo"><img th:src="@{/images/brands/samsung.png}" alt=""></div>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="https://www.mi.com/vn">
                                     <div class="brand-logo"><img th:src="@{/images/brands/xiaomi.png}" alt=""></div>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="https://www.acer.com/vn-vi">
                                     <div class="brand-logo"><img th:src="@{/images/brands/acer.png}" alt=""></div>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="https://www.logitech.com/vi-vn">
                                     <div class="brand-logo"><img th:src="@{/images/brands/logitech.png}" alt=""></div>
                                 </a>
                             </li>
@@ -221,27 +223,27 @@
                     <li>
                         <ul class="brand_item">
                             <li>
-                                <a href="#">
+                                <a href="https://www.lenovo.com/vn/vn/">
                                     <div class="brand-logo"><img th:src="@{/images/brands/lenovo.png}" alt=""></div>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="https://www.oppo.com/vn/">
                                     <div class="brand-logo"><img th:src="@{/images/brands/oppo.png}" alt=""></div>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="https://www.asus.com/vn/">
                                     <div class="brand-logo"><img th:src="@{/images/brands/asus.png}" alt=""></div>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="https://vn.msi.com/">
                                     <div class="brand-logo"><img th:src="@{/images/brands/msi.png}" alt=""></div>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="https://www.dell.com/en-vn">
                                     <div class="brand-logo"><img th:src="@{/images/brands/dell.png}" alt=""></div>
                                 </a>
                             </li>
@@ -399,7 +401,7 @@
         window.location.href = "http://localhost:8080/admin/form-update-phone/" + id;
     }
     function deleteProduct(id) {
-        window.location.href = "http://localhost:8080/admin/delete/" + id;
+        window.location.href = "http://localhost:8080/admin/deletePhone/" + id;
     }
 
     function searchCondition(page,size){

@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import t3h.project.java.shop.Brand.Dto.CreateBrandDto;
 import t3h.project.java.shop.Brand.Model.Brand;
+import t3h.project.java.shop.Brand.Repository.BrandRepository;
 import t3h.project.java.shop.Brand.Service.BrandService;
 import t3h.project.java.shop.Category.Dto.CreateCateDto;
 import t3h.project.java.shop.Category.Model.Category;
@@ -30,9 +31,9 @@ import java.util.stream.Collectors;
 @Service
 public class ProductServiceImpl extends GenericServiceImpl<Product,Long> implements ProductService {
 
-    private ProductRepository productRepository;
-    private BrandService brandService;
-    private CateService cateService;
+    private final ProductRepository productRepository;
+    private final BrandService brandService;
+    private final CateService cateService;
     private MapDtoToModel<Object, Product> mapper;
     private final ModelMapper modelMapper;
 
@@ -149,6 +150,8 @@ public class ProductServiceImpl extends GenericServiceImpl<Product,Long> impleme
     public CreateProductDto findProductById(Long id) {
         Product product = productRepository.findProductById(id);
         CreateProductDto productDto = modelMapper.map(product, CreateProductDto.class);
+        productDto.setBrandName(brandService.findBrandById(product.getBrand().getId()).getName());
+        productDto.setCateName(cateService.findCateById(product.getCategory().getId()).getName());
         return productDto;
     }
     @Override
