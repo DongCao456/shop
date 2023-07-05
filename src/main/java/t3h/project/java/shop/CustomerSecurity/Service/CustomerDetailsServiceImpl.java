@@ -18,7 +18,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.Set;
-@Service
+
 
 public class CustomerDetailsServiceImpl implements UserDetailsService {
 

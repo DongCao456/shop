@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/loginAdmin")
+@RequestMapping("/admin")
 public class LoginController {
 
 
 
-    @GetMapping()
+    @GetMapping("/login")
     public String loginForm(){
         return "Login";
     }
