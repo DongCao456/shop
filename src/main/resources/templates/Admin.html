@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <div>HELLO EVERYONE</div>
+<div sec:authorize="hasRole('EMPLOYEE')">Text visible to MANAGER.</div>
+Authenticated username:
+<div sec:authentication="name"></div>
+<p>Roles: <span sec:authentication="principal.authorities"> </span></p>
+<form th:action="@{/admin/logout}" method="post">
+    <input type="submit" value="Logout" />
+</form>
 </body>
 </html>

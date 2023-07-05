@@ -4,26 +4,26 @@
     <title>Login V8</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" th:href="@{Client/images/icons/favicon.ico}"/>
+    <link rel="icon" type="image/png" th:href="@{/ALLCSS/Client/images/icons/favicon.ico}"/>
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" th:href="@{Client/vendor/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/ALLCSS/Client/vendor/bootstrap/css/bootstrap.min.css}">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" th:href="@{Client/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/ALLCSS/Client/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" th:href="@{Client/fonts/Linearicons-Free-v1.0.0/icon-font.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/ALLCSS/Client/fonts/Linearicons-Free-v1.0.0/icon-font.min.css}">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" th:href="@{Client/vendor/animate/animate.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/ALLCSS/Client/vendor/animate/animate.css}">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" th:href="@{Client/vendor/css-hamburgers/hamburgers.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/ALLCSS/Client/vendor/css-hamburgers/hamburgers.min.css}">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" th:href="@{Client/vendor/animsition/css/animsition.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/ALLCSS/Client/vendor/animsition/css/animsition.min.css}">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" th:href="@{Client/vendor/select2/select2.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/ALLCSS/Client/vendor/select2/select2.min.css}">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" th:href="@{Client/vendor/daterangepicker/daterangepicker.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/ALLCSS/Client/vendor/daterangepicker/daterangepicker.css}">
     <!--===============================================================================================-->
-    <link rel="stylesheet" type="text/css" th:href="@{Client/css/util.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{Client/css/main.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/ALLCSS/Client/css/util.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/ALLCSS/Client/css/main.css}">
     <!--===============================================================================================-->
 </head>
 <body>
@@ -44,6 +44,10 @@
                 <div class="wrap-input100 validate-input" data-validate = "Please enter password">
                     <input class="input100" type="password" name="password" id="password" placeholder="Password">
                     <span class="focus-input100"></span>
+                </div>
+
+                <div th:if="${param.error}">
+                    <h4 style="color: red">[[${session.SPRING_SECURITY_LAST_EXCEPTION.message}]]</h4>
                 </div>
 
                 <div class="text-right p-t-13 p-b-23">
@@ -78,21 +82,21 @@
 
 
 <!--===============================================================================================-->
-<script th:src="@{Client/vendor/jquery/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/ALLCSS/Client/vendor/jquery/jquery-3.2.1.min.js}"></script>
 <!--===============================================================================================-->
-<script th:src="@{Client/vendor/animsition/js/animsition.min.js}"></script>
+<script th:src="@{/ALLCSS/Client/vendor/animsition/js/animsition.min.js}"></script>
 <!--========================================================================V=======================-->
-<script th:src="@{Client/vendor/bootstrap/js/popper.js}"></script>
-<script th:src="@{Client/vendor/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/ALLCSS/Client/vendor/bootstrap/js/popper.js}"></script>
+<script th:src="@{/ALLCSS/Client/vendor/bootstrap/js/bootstrap.min.js}"></script>
 <!--===============================================================================================-->
-<script th:src="@{Client/vendor/select2/select2.min.js}"></script>
+<script th:src="@{/ALLCSS/Client/vendor/select2/select2.min.js}"></script>
 <!--===============================================================================================-->
-<script th:src="@{Client/vendor/daterangepicker/moment.min.js}"></script>
-<script th:src="@{Client/vendor/daterangepicker/daterangepicker.js}"></script>
+<script th:src="@{/ALLCSS/Client/vendor/daterangepicker/moment.min.js}"></script>
+<script th:src="@{/ALLCSS/Client/vendor/daterangepicker/daterangepicker.js}"></script>
 <!--===============================================================================================-->
-<script th:src="@{Client/vendor/countdowntime/countdowntime.js}"></script>
+<script th:src="@{/ALLCSS/Client/vendor/countdowntime/countdowntime.js}"></script>
 <!--===============================================================================================-->
-<script th:src="@{Client/js/main.js}"></script>
+<script th:src="@{/ALLCSS/Client/js/main.js}"></script>
 
 </body>
 </html>
