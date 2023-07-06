@@ -18,4 +18,8 @@ public interface CateService extends GenericService<Category,Long> {
     Category createCateDto(CreateCateDto createCateDto);
     Category findCateByName(String name);
     Category findCateById(Long id);
+    Long findIdByName(String name);
+    String findCateNameByShortcut(String shortcut);
+    Category findCateByShortcut(String shortcut);
+
 }

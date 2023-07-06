@@ -29,10 +29,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <ul class="topmenu">
-                                    <li><a href="#">Giới thiệu</a></li>
-                                    <li><a href="#">Dịch vụ</a></li>
-                                    <li><a href="#">Tuyển dụng</a></li>
-                                    <li><a href="#">Hỗ trợ</a></li>
+                                    <li><a href="#">Đăng xuất</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -338,10 +335,10 @@
         let objFilter = {
             name:null
         };
-        getPhones(page,size,objFilter);
+        getProducts(page,size,objFilter);
     }
 
-    function getPhones(page, size, objectFilter) {
+    function getProducts(page, size, objectFilter) {
         let bodyTable = $('#tableDate > tbody');
         bodyTable.empty();
         $.ajax({
@@ -397,11 +394,8 @@
             }
         })
     }
-    function editProduct(id) {
-        window.location.href = "http://localhost:8080/admin/form-update-accessory/" + id;
-    }
-    function deleteProduct(id) {
-        window.location.href = "http://localhost:8080/admin/deleteAccessory/" + id;
+    function addToCart(id){
+        
     }
 
     function searchCondition(page,size){
@@ -409,7 +403,7 @@
         filter.name= $("#name").val() === '' ? null : $("#name").val();
         filter.price = $("#price").val() === '' ? null : $("#price").val();
         filter.brandId = $("#brandId").val() === '' ? null : $("#brandId").val();
-        getPhones(page,size,filter);
+        getProducts(page,size,filter);
     }
 
     function changePage(page,size,event){

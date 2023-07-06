@@ -104,10 +104,12 @@ public class ProductServiceImpl extends GenericServiceImpl<Product,Long> impleme
     @Override
     public BaseResponse<Page<CreateProductDto>> getAllByCategory(ProductFilterRequest filterRequest, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
+        System.out.println(filterRequest.getCateName());
         Page<Product> productEntities = productRepository.findAllByCategory(filterRequest,pageable);
         List<CreateProductDto> productDTOs = productEntities.getContent().stream()
                 .map(productEntity -> {
                     CreateProductDto productDto = modelMapper.map(productEntity, CreateProductDto.class);
+//                    System.out.println(productEntity.getBrand().getName());
                     productDto.setBrandName(productEntity.getBrand().getName());
                     productDto.setImage(productEntity.getImage());
                     productDto.setCateName(productEntity.getCategory().getName());
@@ -124,16 +126,28 @@ public class ProductServiceImpl extends GenericServiceImpl<Product,Long> impleme
     }
 
     @Override
+    public List<CreateProductDto> getAllByCategoryName(String categoryName) {
+        List<Product> products = productRepository.getProductsByCategoryName(categoryName);
+        List<CreateProductDto> productDtos = products.stream().map(product -> {
+            CreateProductDto productDto = modelMapper.map(product, CreateProductDto.class);
+            productDto.setCateName(product.getCategory().getName());
+            productDto.setBrandName(product.getBrand().getName());
+            return productDto;
+        }).collect(Collectors.toList());
+        return productDtos;
+    }
+
+    @Override
     public BaseResponse<Page<CreateProductDto>> getAll(ProductFilterRequest filterRequest, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> productEntities = productRepository.findAllByFilter(filterRequest, pageable);
+        System.out.println(productEntities.getTotalElements());
 
         List<CreateProductDto> productDTOs = productEntities.getContent().stream()
                 .map(productEntity -> {
                     CreateProductDto productDto = modelMapper.map(productEntity, CreateProductDto.class);
-                    productDto.setBrandName(productEntity.getBrand().getName());
-                    productDto.setImage(productEntity.getImage());
                     productDto.setCateName(productEntity.getCategory().getName());
+                    productDto.setBrandName(productEntity.getBrand().getName());
                     return productDto;
                 })
                 .collect(Collectors.toList());

@@ -12,5 +12,6 @@ public class CreateCateDto {
     private Integer id;
     private String name;
     private String description;
+    private String shortcut;
     private Set<String> listBrandsName=new HashSet<>();
 }

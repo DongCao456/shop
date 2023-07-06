@@ -1,6 +1,5 @@
 package t3h.project.java.shop.Category.Controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +12,11 @@ import t3h.project.java.shop.CommonData.model.ResponseHandler;
 @RestController
 public class CategoryController {
 
-    @Autowired
-    private CateService cateService;
+    private final CateService cateService;
+
+    public CategoryController(CateService cateService) {
+        this.cateService = cateService;
+    }
 
     @GetMapping()
     public ResponseEntity<Object> findList(){

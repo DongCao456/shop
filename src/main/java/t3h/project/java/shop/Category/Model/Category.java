@@ -18,6 +18,7 @@ import java.util.Set;
 public class Category extends AbstractEntity {
     private String name;
     private String description;
+    private String shortcut;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @EqualsAndHashCode.Exclude

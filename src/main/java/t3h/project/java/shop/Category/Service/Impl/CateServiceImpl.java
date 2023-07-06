@@ -70,4 +70,19 @@ public class CateServiceImpl extends GenericServiceImpl<Category,Long> implement
         Category category = cateRepository.findCategoryById(id);
         return category;
     }
+
+    @Override
+    public Long findIdByName(String name) {
+        return cateRepository.findIDByName(name);
+    }
+
+    @Override
+    public String findCateNameByShortcut(String shortcut) {
+        return cateRepository.findCategoryNameByShortcut(shortcut);
+    }
+
+    @Override
+    public Category findCateByShortcut(String shortcut) {
+        return cateRepository.findCategoryByShortcut(shortcut);
+    }
 }

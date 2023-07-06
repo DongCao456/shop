@@ -13,6 +13,6 @@ public class ProductFilterRequest {
     private String image;
     private String cateName;
     private String brandName;
-    private String brandId;
+    private Integer brandId;
     private Integer categoryId;
 }

@@ -26,7 +26,7 @@ public class AdminController {
         this.brandService = brandService;
         this.cateService = cateService;
     }
-//Phone
+    //Phone
     @GetMapping("/form-create-phone")
     public String getFormCreatePhone(Model model){
         CreateProductDto productDto = new CreateProductDto();
@@ -67,19 +67,19 @@ public class AdminController {
         productService.deleteById(id);
         return "redirect:/admin/phone";
     }
-//    Laptop
-@GetMapping("/form-create-laptop")
-public String getFormCreateLaptop(Model model){
-    CreateProductDto productDto = new CreateProductDto();
-    model.addAttribute("product", productDto);
+    //    Laptop
+    @GetMapping("/form-create-laptop")
+    public String getFormCreateLaptop(Model model){
+        CreateProductDto productDto = new CreateProductDto();
+        model.addAttribute("product", productDto);
 
-    List<CreateBrandDto> brandDtos = brandService.getAll();
-    model.addAttribute("brands", brandDtos);
+        List<CreateBrandDto> brandDtos = brandService.getAll();
+        model.addAttribute("brands", brandDtos);
 
-    List<CreateCateDto> cateDtos = cateService.getAll();
-    model.addAttribute("cates", cateDtos);
-    return "admin/laptop-create";
-}
+        List<CreateCateDto> cateDtos = cateService.getAll();
+        model.addAttribute("cates", cateDtos);
+        return "admin/laptop-create";
+    }
     @PostMapping("/saveLaptop")
     public String saveLaptop(@ModelAttribute(name = "product")CreateProductDto productDto){
         productService.insertProduct(productDto);
@@ -108,19 +108,19 @@ public String getFormCreateLaptop(Model model){
         productService.deleteById(id);
         return "redirect:/admin/laptop";
     }
-//    Tablet
-@GetMapping("/form-create-tablet")
-public String getFormCreateTablet(Model model){
-    CreateProductDto productDto = new CreateProductDto();
-    model.addAttribute("product", productDto);
+    //    Tablet
+    @GetMapping("/form-create-tablet")
+    public String getFormCreateTablet(Model model){
+        CreateProductDto productDto = new CreateProductDto();
+        model.addAttribute("product", productDto);
 
-    List<CreateBrandDto> brandDtos = brandService.getAll();
-    model.addAttribute("brands", brandDtos);
+        List<CreateBrandDto> brandDtos = brandService.getAll();
+        model.addAttribute("brands", brandDtos);
 
-    List<CreateCateDto> cateDtos = cateService.getAll();
-    model.addAttribute("cates", cateDtos);
-    return "admin/tablet-create";
-}
+        List<CreateCateDto> cateDtos = cateService.getAll();
+        model.addAttribute("cates", cateDtos);
+        return "admin/tablet-create";
+    }
     @PostMapping("/saveTablet")
     public String saveTablet(@ModelAttribute(name = "product")CreateProductDto productDto){
         productService.insertProduct(productDto);
@@ -149,19 +149,19 @@ public String getFormCreateTablet(Model model){
         productService.deleteById(id);
         return "redirect:/admin/tablet";
     }
-//    Watch
-@GetMapping("/form-create-watch")
-public String getFormCreateWatch(Model model){
-    CreateProductDto productDto = new CreateProductDto();
-    model.addAttribute("product", productDto);
+    //    Watch
+    @GetMapping("/form-create-watch")
+    public String getFormCreateWatch(Model model){
+        CreateProductDto productDto = new CreateProductDto();
+        model.addAttribute("product", productDto);
 
-    List<CreateBrandDto> brandDtos = brandService.getAll();
-    model.addAttribute("brands", brandDtos);
+        List<CreateBrandDto> brandDtos = brandService.getAll();
+        model.addAttribute("brands", brandDtos);
 
-    List<CreateCateDto> cateDtos = cateService.getAll();
-    model.addAttribute("cates", cateDtos);
-    return "admin/watch-create";
-}
+        List<CreateCateDto> cateDtos = cateService.getAll();
+        model.addAttribute("cates", cateDtos);
+        return "admin/watch-create";
+    }
     @PostMapping("/saveWatch")
     public String saveWatch(@ModelAttribute(name = "product")CreateProductDto productDto){
         productService.insertProduct(productDto);
@@ -190,19 +190,19 @@ public String getFormCreateWatch(Model model){
         productService.deleteById(id);
         return "redirect:/admin/watch";
     }
-//    Accessory
-@GetMapping("/form-create-accessory")
-public String getFormCreateAccessory(Model model){
-    CreateProductDto productDto = new CreateProductDto();
-    model.addAttribute("product", productDto);
+    //    Accessory
+    @GetMapping("/form-create-accessory")
+    public String getFormCreateAccessory(Model model){
+        CreateProductDto productDto = new CreateProductDto();
+        model.addAttribute("product", productDto);
 
-    List<CreateBrandDto> brandDtos = brandService.getAll();
-    model.addAttribute("brands", brandDtos);
+        List<CreateBrandDto> brandDtos = brandService.getAll();
+        model.addAttribute("brands", brandDtos);
 
-    List<CreateCateDto> cateDtos = cateService.getAll();
-    model.addAttribute("cates", cateDtos);
-    return "admin/accessory-create";
-}
+        List<CreateCateDto> cateDtos = cateService.getAll();
+        model.addAttribute("cates", cateDtos);
+        return "admin/accessory-create";
+    }
     @PostMapping("/saveAccessory")
     public String saveAccessory(@ModelAttribute(name = "product")CreateProductDto productDto){
         productService.insertProduct(productDto);
@@ -230,13 +230,13 @@ public String getFormCreateAccessory(Model model){
         productService.deleteById(id);
         return "redirect:/admin/accessory";
     }
-//    Brand
-@GetMapping("/form-create-brand")
-public String getFormCreateBrand(Model model){
-    CreateBrandDto brandDto = new CreateBrandDto();
-    model.addAttribute("brand", brandDto);
-    return "admin/brand-create";
-}
+    //    Brand
+    @GetMapping("/form-create-brand")
+    public String getFormCreateBrand(Model model){
+        CreateBrandDto brandDto = new CreateBrandDto();
+        model.addAttribute("brand", brandDto);
+        return "admin/brand-create";
+    }
     @PostMapping("/saveBrand")
     public String saveBrand(@ModelAttribute(name = "brand")CreateBrandDto brandDto){
         brandService.update(brandDto);

@@ -5,9 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" th:href="@{/images/icons/watch.png}">
+    <link rel="shortcut icon" th:href="@{/images/icons/laptop.png}">
     <title>
-        Đồng hồ
+        Laptop
     </title>
     <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,700,500italic,100italic,100' rel='stylesheet' type='text/css'>
@@ -22,7 +22,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-2 col-sm-2">
-                    <div class="logo"><a th:href="@{/admin/index}"><img th:src="@{/images/logot3h.png}" alt="T3HShop"></a></div>
+                    <div class="logo"><a th:href="@{/logined/index}"><img th:src="@{/images/logot3h.png}" alt="T3HShop"></a></div>
                 </div>
                 <div class="col-md-10 col-sm-10">
                     <div class="header_top">
@@ -39,16 +39,21 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="header_bottom">
+                        <ul class="option">
+                            <li class="option-cart">
+                                <a th:href="@{/logined/cart}" class="cart-icon"> </a>
+                            </li>
+                        </ul>
                         <div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div>
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
-                                <li><a th:href="@{/admin/index}">Home</a></li>
-                                <li><a th:href="@{/admin/phone}">Phone</a></li>
-                                <li><a th:href="@{/admin/laptop}">Laptop</a></li>
-                                <li><a th:href="@{/admin/tablet}">Tablet</a></li>
-                                <li class="active"><a th:href="@{/admin/watch}">Watch</a></li>
-                                <li><a th:href="@{/admin/accessory}">Phụ kiện</a></li>
-                                <li><a th:href="@{/admin/news}">Tin tức</a></li>
+                                <li><a th:href="@{/logined/index}">Home</a></li>
+                                <li><a th:href="@{/logined/phone}">Phone</a></li>
+                                <li class="active"><a th:href="@{/logined/laptop}">Laptop</a></li>
+                                <li><a th:href="@{/logined/tablet}">Tablet</a></li>
+                                <li><a th:href="@{/logined/watch}">Watch</a></li>
+                                <li><a th:href="@{/logined/accessory}">Phụ kiện</a></li>
+                                <li><a th:href="@{/logined/news}">Tin tức</a></li>
                             </ul>
                         </div>
                     </div>
@@ -152,23 +157,10 @@
                     <hr>
                     <!-- Products  -->
                     <table class="table" id="tableDate">
-                        <thead>
-                        <tr>
-                            <th>Mã sản phẩm</th>
-                            <th style="width: 15%;">Tên sản phẩm</th>
-                            <th>Hình ảnh</th>
-                            <th>Giá sản phẩm</th>
-                            <th>Số lượng</th>
-                            <th>Thương hiệu</th>
-                            <th>Loại sản phẩm</th>
-                            <th>Hành động</th>
-                        </tr>
-                        </thead>
                         <tbody>
 
                         </tbody>
                     </table>
-                    <a th:href="@{/admin/form-create-watch}" class="btn btn-primary btn-sm mb-3"> Thêm sản phẩm</a>
                     <nav aria-label="...">
                         <ul class="pagination" id="pageId" style="float: right;">
                             <!--            <li class="page-item">-->
@@ -344,7 +336,7 @@
         bodyTable.empty();
         $.ajax({
             type: "POST",
-            url: "http://localhost:8080/watch?page=" + page + "&size=" + size,
+            url: "http://localhost:8080/laptop?page=" + page + "&size=" + size,
             contentType: "application/json",
             data: JSON.stringify(objectFilter),
             dataType: "json",
@@ -352,21 +344,40 @@
                 console.log(response);
                 let products = response?.data?.content;
                 for (let i = 0; i < products.length; i++) {
-                    data = products[i];
+                    let data = products[i];
                     let row = '<tr>' +
-                        '<td>' + data.id + '</td>' +
-                        '<td style="width: 15%;">' + data.name + '</td>' +
-                        '<td>' + '<img style="width: 50px;height: 50px" src="' + data.image + '">' + '</td>' +
-                        '<td>' + data.price + '</td>' +
-                        '<td>' + data.quantity + '</td>' +
-                        '<td>' + data.brandName + '</td>' +
-                        '<td>' + data.cateName + '</td>';
-                    row +=
-                        '<td> <a class="btn btn-warning" onclick="editProduct(' + data.id + ')" href="#">Sửa</a> ' +
-                        '<a style="margin-left: 10%" class="btn btn-danger" onclick="deleteProduct(' + data.id + ')" href="#">Xóa</a> </td>' +
-                        '</tr>'
-                    $('#tableDate').append(row);
+                        '<td>' +
+                        '<div class="product-row">' +
+                        '<div class="thumbnail">' +
+                        '<img style="width: 200px; height: 200px;" src="' + data.image + '">' +
+                        '</div>' +
+                        '<div class="product-list-description">' +
+                        '<div class="productname">' + data.name + '</div>' +
+                        '<p>' + data.description + '</p>' +
+                        '<div class="list_bottom">' +
+                        '<div class="price">' +
+                        '<span class="new_price">' +
+                        data.price +
+                        '<sup><u>đ</u></sup>' +
+                        '</span>' +
+                        '</div>' +
+                        '<div class="button_group">' +
+                        // '<button>' +
+                        '<a class="btn btn-warning no-border" style="border-color: transparent;" onclick="editProduct(' + data.id + ')" href="#">Xem chi tiết</a>' +
+                        // '</button>' +
+                        // '<button>' +
+                        '<a style="margin-left: 10%; border-color: transparent;" class="btn btn-danger no-border" onclick="deleteProduct(' + data.id + ')" href="#">Thêm vào giỏ</a>' +
+                        // '</button>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</td>' +
+                        '</tr>';
+                    $('#tableDate > tbody').append(row);
                 }
+
+
 
                 // Phân trang
                 let totalPage = response.data.totalPages;
@@ -395,18 +406,16 @@
             }
         })
     }
-    function editProduct(id) {
-        window.location.href = "http://localhost:8080/admin/form-update-watch/" + id;
+    function addToCart(id){
+
     }
-    function deleteProduct(id) {
-        window.location.href = "http://localhost:8080/admin/deleteWatch/" + id;
-    }
+
 
     function searchCondition(page,size){
         let filter = {};
         filter.name= $("#name").val() === '' ? null : $("#name").val();
         filter.price = $("#price").val() === '' ? null : $("#price").val();
-        filter.brandId = $("#brandId").val() === '' ? null : $("#brandId").val();
+        filter.brandId = $("#brand").val() === '' ? null : $("#brand").val();
         getPhones(page,size,filter);
     }
 

@@ -12,6 +12,8 @@ import t3h.project.java.shop.Product.Dto.CreateProductDto;
 import t3h.project.java.shop.Product.Model.Product;
 import t3h.project.java.shop.Product.Model.Request.ProductFilterRequest;
 
+import java.util.List;
+
 @Repository
 public interface ProductRepository extends JpaRepository<Product,Long> {
 
@@ -38,6 +40,7 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
             "AND (:#{#condition.brandName} is null or lower(b.name) = :#{#condition.brandName})"
     )
     Page<Product> findAllByCategory(@Param("condition") ProductFilterRequest filterRequest, Pageable pageable);
+
     @Query(value = "SELECT p FROM Product p " +
             "INNER JOIN p.brand b " +
             "WHERE " +
@@ -49,4 +52,11 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
             "inner join p.brand b " +
             "where p.id = :id")
     Product findProductById(@Param("id") Long id);
+
+    @Query("SELECT p FROM Product p " +
+            "INNER JOIN p.category c " +
+            "LEFT JOIN p.brand b " +
+            "WHERE " +
+            "LOWER(c.name) = LOWER(:categoryName)")
+    List<Product> getProductsByCategoryName(@Param("categoryName") String categoryName);
 }

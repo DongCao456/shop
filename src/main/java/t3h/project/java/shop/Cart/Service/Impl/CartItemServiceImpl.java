@@ -34,7 +34,7 @@ public class CartItemServiceImpl extends GenericServiceImpl<CartItem,Long> imple
 
     @Override
     public CartItem addItems(Long productId, Integer quantity,String name) {
-        Integer addQuantity=quantity;
+        Integer addQuantity = quantity;
         Optional<Product> product=productService.findById(productId);
         Optional<User> user=userService.findByUsername(name);
         CartItem cartItem=cartItemRepository.findByUserAndProduct(user.get(),product.get());

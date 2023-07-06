@@ -18,4 +18,11 @@ public interface CateRepository extends JpaRepository<Category,Long> {
 
     @Query(value = "select c from Category c where c.id = :id")
     Category findCategoryById(@Param("id") Long id);
+
+    @Query(value = "select c.name from Category c where lower(c.shortcut) = lower(:shortcut) ")
+    String findCategoryNameByShortcut(@Param("shortcut") String shortcut);
+    @Query(value = "select c.id from Category c where lower(c.name) = lower(:name) ")
+    Long findIDByName(@Param("name") String name);
+    @Query(value = "select c from Category c where lower(c.shortcut) = lower(:shortcut)")
+    Category findCategoryByShortcut(@Param("shortcut") String shortcut);
 }
