@@ -3,7 +3,6 @@ package t3h.project.java.shop.User.Controller;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import t3h.project.java.shop.CommonData.model.ResponseHandler;
 import t3h.project.java.shop.User.Dto.CreateUserDto;
@@ -24,7 +23,7 @@ public class UserController {
 
     @GetMapping()
     public ResponseEntity<Object> findAll(){
-        List<User> list=userRepository.findAll();
+        List<User> list=userService.findList();
         return ResponseHandler.getResponse(list, HttpStatus.OK);
     }
 

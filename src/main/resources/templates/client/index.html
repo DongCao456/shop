@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+      <meta name="description" content="">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="shortcut icon" th:href="@{/images/logot3h.png}">
+      <title>Home Page</title>
+      <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+      <link th:href="@{'http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,700,500italic,100italic,100'}" rel="stylesheet" type="text/css">
+      <link th:href="@{/css/font-awesome.min.css}" rel="stylesheet">
+      <link th:href="@{/css/flexslider.css}" rel="stylesheet" type="text/css" media="screen"/>
+      <link th:href="@{/css/sequence-looptheme.css}" rel="stylesheet" media="all"/>
+      <link th:href="@{/css/style.css}" rel="stylesheet">
+
+
+      <!-- [if lt IE 9]><script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script><script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script><![endif] -->
+   </head>
+   <!-- Header -->
+   <body id="home">
+      <div class="wrapper">
+         <div class="header">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-2 col-sm-2">
+                     <div class="logo"><a th:href="@{/client/index}"><img th:src="@{/images/logot3h.png}" alt="T3HShop"></a></div>
+                  </div>
+                  <div class="col-md-10 col-sm-10">
+                     <div class="header_top">
+                        <div class="row">
+                           <div class="col-md-6">
+                              <ul class="topmenu">
+                                 <li><form th:action="@{/client/logout}" method="post">
+                                    <input type="submit" value="Logout" />
+                                 </form></li>
+                              </ul>
+                           </div>
+                           <div class="col-md-3">
+                              <ul class="usermenu">
+                                 <li>
+                                    <a href="#" class="log">
+                                       Chào người dùng <div sec:authentication="name"></div>
+                                    </a>
+                                 </li>
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="clearfix"></div>
+                     <div class="header_bottom">
+                        <ul class="option">
+                           <li class="option-cart">
+                              <a th:href="@{/client/cart}" class="cart-icon"></a>
+                           </li>
+                        </ul>
+                        <div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div>
+                        <div class="navbar-collapse collapse">
+                           <ul class="nav navbar-nav">
+                              <li class="active"><a th:href="@{/client/index}">Home</a></li>
+                              <li><a th:href="@{/client/phone}">Phone</a></li>
+                              <li><a th:href="@{/client/laptop}">Laptop</a></li>
+                              <li><a th:href="@{/client/tablet}">Tablet</a></li>
+                              <li><a th:href="@{/client/watch}">Watch</a></li>
+                              <li><a th:href="@{/client/accessory}">Phụ kiện</a></li>
+                              <li><a th:href="@{/client/news}">Tin tức</a></li>
+                           </ul>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- Body -->
+         <!-- float -->
+         <div class="clearfix"></div>
+         <div class="hom-slider">
+            <div class="container">
+               <div id="sequence">
+                  <div class="sequence-prev"><i class="fa fa-angle-left"></i></div>
+                  <div class="sequence-next"><i class="fa fa-angle-right"></i></div>
+                  <ul class="sequence-canvas">
+                     <li>
+                        <div class="flat-caption caption2 formLeft delay400">
+                           <h1>Iphone 14 Pro Max</h1>
+                        </div>
+                        <div class="flat-caption caption3 formLeft delay500">
+                           <h5>Hội tụ những tính năng mới nhất của Apple<br>với ram 6 GB và chip Apple A16 Bionic mạnh mẽ</h5>
+                        </div>
+                        <div class="flat-button caption5 formLeft delay600"><a class="more" href="#">More Details</a></div>
+                        <div class="flat-image formBottom delay200" data-bottom="true"><img th:src="@{/images/products/iphone/14.png}" alt=""></div>
+                     </li>
+
+                     <li>
+                        <div class="flat-caption caption2 formLeft delay400">
+                           <h1>Samsung Note 20</h1>
+                        </div>
+                        <div class="flat-caption caption3 formLeft delay500">
+                           <h5>Màn hình 2K tuyệt hảo và bút S-Pen cho trải nghiệm tiện ích <br>Thiết kế kim loại nguyên khối và mặt lưng kính tinh tế, sang trọng</h5>
+                        </div>
+                        <div class="flat-button caption5 formLeft delay600"><a class="more" href="#">More Details</a></div>
+                        <div class="flat-image formBottom delay200" data-bottom="true"><img th:src="@{/images/products/samsung/samsungnote20.png}" alt=""></div>
+                     </li>
+
+                     <li>
+                        <div class="flat-caption caption2 formLeft delay400">
+                           <h1>Acer Nitro 5</h1>
+                        </div>
+                        <div class="flat-caption caption3 formLeft delay500">
+                           <h5>Được trang bị chip i5 12500H cùng card RTX 3050Ti<br>đủ sức chiến mọi game "khủng" hiện nay trên thị trường</h5>
+                        </div>
+                        <div class="flat-button caption5 formLeft delay600"><a class="more" href="#">More Details</a></div>
+                        <div class="flat-image formBottom delay200" data-bottom="true"><img th:src="@{/images/products/laptop/acer.png}" alt=""></div>
+                     </li>
+
+
+                  </ul>
+               </div>
+            </div>
+            <br> </br>
+            <br> </br>
+            <br> </br>
+            <br> </br>
+            <br> </br>
+            <!-- promotion-banner -->
+            <div class="promotion-banner">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-md-4 col-sm-4 col-xs-4">
+                        <div class="promo-box"><img th:src="@{/images/IpSeries.avif}" alt=""></div>
+                     </div>
+                     <div class="col-md-4 col-sm-4 col-xs-4">
+                        <div class="promo-box"><img th:src="@{/images/bannerLap.jpg}" alt=""></div>
+                     </div>
+                     <div class="col-md-4 col-sm-4 col-xs-4">
+                        <div class="promo-box"><img th:src="@{/images/apple-watch-series-8-banner.png}" alt=""></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <!-- New Products -->
+         <div class="clearfix"></div>
+         <div class="container_fullwidth">
+            <div class="container">
+               <div class="hot-products">
+                  <h3 class="title">Sản phẩm<strong> MỚI RA MẮT </strong></h3>
+                  <div class="control"><a id="prev_hot" class="prev" href="#">&lt;</a><a id="next_hot" class="next" href="#">&gt;</a></div>
+                  <ul id="hot">
+                     <li>
+                        <div class="row">
+                           <div class="col-md-3 col-sm-6">
+                              <div class="products">
+                                 <div class="offer">Giảm 11%</div>
+                                 <div class="thumbnail"><a href="details.html"><img th:src="@{/images/products/iphone/14.png}" alt="Product Name"></a></div>
+                                 <div class="productname">iPhone 14 Pro Max 128GB | <br> Chính hãng VN/A</div>
+                                 <h4 class="price">26.790.000₫</h4>
+                              </div>
+                           </div>
+                           <div class="col-md-3 col-sm-6">
+                              <div class="products">
+                                 <div class="offer">Giảm 8%</div>
+
+                                 <div class="thumbnail"><a href="details.html"><img th:src="@{/images/products/xiaomi/xiaomi-redmi.png}" alt="Product Name"></a></div>
+                                 <div class="productname">Xiaomi Redmi Note 12</div>
+                                 <h4 class="price">4.590.000₫</h4>
+                              </div>
+                           </div>
+                           <div class="col-md-3 col-sm-6">
+                              <div class="products">
+                                 <div class="offer">Giảm 16%</div>
+                                 <div class="thumbnail"><a href="details.html"><img th:src="@{/images/products/samsung/samsungnote20.png}" alt="Product Name"></a></div>
+                                 <div class="productname">Samsung Galaxy S23 Ultra <br> 256GB</div>
+                                 <h4 class="price">26.990.000₫</h4>
+                              </div>
+                           </div>
+                           <div class="col-md-3 col-sm-6">
+                              <div class="products">
+                                 <div class="offer">Giảm 5%</div>
+
+                                 <div class="thumbnail"><a href="details.html"><img th:src="@{/images/products/oppo/oppo-reno.png}" alt="Product Name"></a></div>
+                                 <div class="productname">OPPO Reno8 T 5G <br> (8GB - 128GB)</div>
+                                 <h4 class="price">9.490.000₫</h4>
+                              </div>
+                           </div>
+                        </div>
+                     </li>
+                  </ul>
+               </div>
+               <!-- Hot products  -->
+               <div class="clearfix"></div>
+               <div class="featured-products">
+                  <h3 class="title">Sản phẩm<strong> ĐANG HOT</strong> </h3>
+                  <div class="control"><a id="prev_featured" class="prev" href="#">&lt;</a><a id="next_featured" class="next" href="#">&gt;</a></div>
+                  <ul id="featured">
+                     <li>
+                        <div class="row">
+                           <div class="col-md-3 col-sm-6">
+                              <div class="products">
+                                 <div class="thumbnail"><a href="details.html"><img th:src="@{/images/products/iphone/iPhone-11.png}" alt="Product Name"></a></div>
+                                 <div class="productname">iPhone 11 128GB | <br> Chính hãng VN/A</div>
+                                 <h4 class="price">12.190.000₫</h4>
+                              </div>
+                           </div>
+                           <div class="col-md-3 col-sm-6">
+                              <div class="products">
+                                 <div class="thumbnail"><a href="details.html"><img th:src="@{/images/products/acer/acer-nitro-5.png}" alt="Product Name"></a></div>
+                                 <div class="productname">Acer Nitro Gaming 5 AN515-58-52SP <p>i5 12500H 8GB/512GB SSD/GeForce RTX 3050</p></div>
+                                 <h4 class="price">22.990.000₫</h4>
+                              </div>
+                           </div>
+                           <div class="col-md-3 col-sm-6">
+                              <div class="products">
+                                 <div class="thumbnail"><a href="details.html"><img th:src="@{/images/products/asus/asus-tuf-gaming.png}" alt="Product Name"></a></div>
+                                 <div class="productname">Asus TUF Gaming FX517ZC <br> <p>i5 12450H/RTX 3050 4GB</p></div>
+                                 <h4 class="price">20.790.000₫</h4>
+                              </div>
+                           </div>
+                           <div class="col-md-3 col-sm-6">
+                              <div class="products">
+                                 <div class="thumbnail"><a href="details.html"><img th:src="@{/images/products/watch/apple-watch.png}" alt="Product Name"></a></div>
+                                 <div class="productname">Apple Watch Series 3</div>
+                                 <h4 class="price">2.990.000₫</h4>
+                              </div>
+                           </div>
+                        </div>
+                     </li>
+                  </ul>
+               </div>
+               <div class="clearfix"></div>
+               <!-- Brands -->
+               <div class="our-brand">
+                  <h3 class="title">Thương hiệu <strong>HOT</strong></h3>
+                  <div class="control"><a id="prev_brand" class="prev" href="#">&lt;</a><a id="next_brand" class="next" href="#">&gt;</a></div>
+                  <ul id="braldLogo">
+                     <li>
+                        <ul class="brand_item">
+                           <li>
+                              <a href="#">
+                                 <div class="brand-logo"><img th:src="@{/images/brands/apple.png}" alt=""></div>
+                              </a>
+                           </li>
+                           <li>
+                              <a href="#">
+                                 <div class="brand-logo"><img th:src="@{/images/brands/dell.png}" alt=""></div>
+                              </a>
+                           </li>
+                           <li>
+                              <a href="#">
+                                 <div class="brand-logo"><img th:src="@{/images/brands/xiaomi.png}" alt=""></div>
+                              </a>
+                           </li>
+                           <li>
+                              <a href="#">
+                                 <div class="brand-logo"><img th:src="@{/images/brands/acer.png}" alt=""></div>
+                              </a>
+                           </li>
+                           <li>
+                              <a href="#">
+                                 <div class="brand-logo"><img th:src="@{/images/brands/logitech.png}" alt=""></div>
+                              </a>
+                           </li>
+                        </ul>
+                     </li>
+                     <li>
+                        <ul class="brand_item">
+                           <li>
+                              <a href="#">
+                                 <div class="brand-logo"><img th:src="@{/images/brands/lenovo.png}" alt=""></div>
+                              </a>
+                           </li>
+                           <li>
+                              <a href="#">
+                                 <div class="brand-logo"><img th:src="@{/images/brands/oppo.png}" alt=""></div>
+                              </a>
+                           </li>
+                           <li>
+                              <a href="#">
+                                 <div class="brand-logo"><img th:src="@{/images/brands/asus.png}" alt=""></div>
+                              </a>
+                           </li>
+                           <li>
+                              <a href="#">
+                                 <div class="brand-logo"><img th:src="@{/images/brands/msi.png}" alt=""></div>
+                              </a>
+                           </li>
+                           <li>
+                              <a href="#">
+                                 <div class="brand-logo"><img th:src="@{/images/brands/dell.png}" alt=""></div>
+                              </a>
+                           </li>
+                        </ul>
+                     </li>
+                  </ul>
+               </div>
+
+            </div>
+         </div>
+
+
+         <!-- Footer -->
+         <div class="footer">
+            <div class="footer-info">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-md-3">
+                        <div class="footer-logo"><a href="#"><img th:src="@{/images/logot3h.png}" alt=""></a></div>
+                     </div>
+                     <div class="col-md-3 col-sm-6">
+                        <h4 class="title">Thông tin <strong>liên lạc</strong></h4>
+                        <p>Tô Hiệu - Lê Chân - Hải Phòng</p>
+                        <p>Điện thoại : (+84) 94 821 25 16</p>
+                        <p>Email : phamminhhiep0402@gmail.com</p>
+                     </div>
+                     <div class="col-md-3 col-sm-6">
+                        <h4 class="title">Chăm sóc<strong> Khách hàng</strong></h4>
+                        <ul class="support">
+                           <li><a href="#">FAQ</a></li>
+                           <li><a href="#">Payment Option</a></li>
+                           <li><a href="#">Booking Tips</a></li>
+                           <li><a href="#">Infomation</a></li>
+                        </ul>
+                     </div>
+                     <div class="col-md-3">
+                        <h4 class="title">Đón nhận <strong>tin tức mới nhất </strong></h4>
+                        <p>Thông tin mới nhất về các sản phẩm</p>
+                        <form class="newsletter">
+							<input type="text" name="" placeholder="Nhập email của bạn....">
+							<input type="submit" value="Đăng ký" class="button">
+						</form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="copyright-info">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-md-6">
+                        <p>Copyright © 2023. Designed by <a href="https://www.facebook.com/pham.minhhiep.1232/">Pham Minh Hiep</a>. All rights reseved</p>
+                     </div>
+                     <div class="col-md-6">
+                        <ul class="social-icon">
+                           <li><a href="https://www.linkedin.com/in/hiep-pham-minh-09a047265/" class="linkedin"></a></li>
+                           <li><a href="https://mail.google.com/mail/?view=cm&to=phamminhhiep0402@gmail.com" class="google-plus"></a></li>
+                           <li><a href="https://www.facebook.com/pham.minhhiep.1232/" class="facebook"></a></li>
+                        </ul>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+
+
+
+      <!-- Bootstrap core JavaScript==================================================-->
+      <script type="text/javascript" th:src="@{/js/jquery-1.10.2.min.js}"></script>
+      <script type="text/javascript" th:src="@{/js/jquery.easing.1.3.js}"></script>
+      <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+      <script type="text/javascript" th:src="@{/js/jquery.sequence-min.js}"></script>
+      <script type="text/javascript" th:src="@{/js/jquery.carouFredSel-6.2.1-packed.js}"></script>
+      <script defer th:src="@{/js/jquery.flexslider.js}"></script>
+      <script type="text/javascript" th:src="@{/js/script.min.js}" ></script>
+   </body>
+</html>

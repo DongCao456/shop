@@ -21,4 +21,5 @@ public interface ProductService extends GenericService<Product,Long> {
     public void insertProduct(CreateProductDto productDto);
     public void deleteById(Long id);
     public void updateProduct(CreateProductDto productDto);
+    ProductFilterRequest findOneById(Long id);
 }

@@ -59,4 +59,6 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
             "WHERE " +
             "LOWER(c.name) = LOWER(:categoryName)")
     List<Product> getProductsByCategoryName(@Param("categoryName") String categoryName);
+
+
 }

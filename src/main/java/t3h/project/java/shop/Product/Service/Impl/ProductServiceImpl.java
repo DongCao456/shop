@@ -182,4 +182,11 @@ public class ProductServiceImpl extends GenericServiceImpl<Product,Long> impleme
         productRepository.save(product);
     }
 
+    @Override
+    public ProductFilterRequest findOneById(Long id) {
+        Product product = productRepository.findProductById(id);
+        ProductFilterRequest filterRequest = modelMapper.map(product, ProductFilterRequest.class);
+        return filterRequest;
+    }
+
 }

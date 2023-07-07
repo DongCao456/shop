@@ -6,8 +6,9 @@ import t3h.project.java.shop.Cart.Model.CartItem;
 import t3h.project.java.shop.Cart.Repository.CartItemRepository;
 import t3h.project.java.shop.Cart.Service.CartItemService;
 import t3h.project.java.shop.CommonData.generic.GenericServiceImpl;
+import t3h.project.java.shop.Customer.Model.Customer;
+import t3h.project.java.shop.Customer.Service.CustomerService;
 import t3h.project.java.shop.Product.Model.Product;
-import t3h.project.java.shop.Product.Repository.ProductRepository;
 import t3h.project.java.shop.Product.Service.ProductService;
 import t3h.project.java.shop.User.Model.User;
 import t3h.project.java.shop.User.Service.UserService;
@@ -24,20 +25,24 @@ public class CartItemServiceImpl extends GenericServiceImpl<CartItem,Long> imple
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private CustomerService customerService;
+
 
     @Autowired
     private CartItemRepository cartItemRepository;
     @Override
-    public List<CartItem> listCartItems(User user) {
-        return cartItemRepository.findByUser(user);
+    public List<CartItem> listCartItems(Customer customer) {
+        return cartItemRepository.findByCustomer(customer);
     }
 
     @Override
     public CartItem addItems(Long productId, Integer quantity,String name) {
-        Integer addQuantity = quantity;
+        Integer addQuantity=quantity;
         Optional<Product> product=productService.findById(productId);
-        Optional<User> user=userService.findByUsername(name);
-        CartItem cartItem=cartItemRepository.findByUserAndProduct(user.get(),product.get());
+        //Optional<User> user=userService.findByUsername(name);
+        Optional<Customer> customer=customerService.findByUsername(name);
+        CartItem cartItem=cartItemRepository.findByCustomerAndProduct(customer.get(),product.get());
 
         if(cartItem != null){
             addQuantity=cartItem.getQuantity() + quantity;
@@ -47,7 +52,7 @@ public class CartItemServiceImpl extends GenericServiceImpl<CartItem,Long> imple
             cartItem.setPrice(product.get().getPrice() * quantity);
             cartItem.setQuantity(quantity);
             cartItem.setProduct(product.get());
-            cartItem.setUser(user.get());
+            cartItem.setCustomer(customer.get());
         }
 
         return cartItemRepository.save(cartItem);
