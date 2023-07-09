@@ -6,8 +6,11 @@
     <title>Title</title>
 </head>
 <body>
-<div>HELLO Client</div>
-<p>Your username is : Dong</p>
+<div>HELLO EVERYONE</div>
+<div sec:authorize="hasRole('HIGH')">Text visible to HIGH.</div>
+Authenticated username:
+<div sec:authentication="name"></div>
+<p>Roles: <span sec:authentication="principal.authorities"> </span></p>
 <form th:action="@{/client/logout}" method="post">
     <input type="submit" value="Logout" />
 </form>

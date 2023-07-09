@@ -13,9 +13,9 @@ import t3h.project.java.shop.CommonData.model.AuditorAwareImpl;
 public class JpaConfig {
 
 //    @Bean
-////    AuditorAware<String> auditorAware(){
-////        return new AuditorAwareImpl();
-////    }
+//    AuditorAware<String> auditorAware(){
+//        return new AuditorAwareImpl();
+//    }
 
     @Component
     public interface GenericRepository<T, ID> extends JpaRepository<T, ID> {
