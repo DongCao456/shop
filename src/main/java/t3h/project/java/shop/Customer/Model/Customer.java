@@ -31,7 +31,7 @@ public class Customer extends AbstractEntity {
     @OneToMany(mappedBy = "customer",fetch = FetchType.LAZY)
     private Set<CartItem> carts=new HashSet<>();
 
-    @OneToMany(mappedBy = "customer",fetch = FetchType.LAZY)\
+    @OneToMany(mappedBy = "customer",fetch = FetchType.LAZY)
     private Set<Order> orders=new HashSet<>();
 
     @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST},fetch = FetchType.EAGER)
