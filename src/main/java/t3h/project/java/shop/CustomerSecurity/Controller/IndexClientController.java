@@ -26,7 +26,8 @@ public class IndexClientController {
         }
 
         Optional<Customer> customer = service.findByUsername(principal.getName());
-        model.addAttribute("customer", customer);
+        model.addAttribute("customer", customer.get());
+
         return "client/index";
     }
 }

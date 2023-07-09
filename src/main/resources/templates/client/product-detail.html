@@ -22,7 +22,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-2 col-sm-2">
-                    <div class="logo"><a th:href="@{//client/index}"><img th:src="@{/images/logot3h.png}" alt="T3HShop"></a></div>
+                    <div class="logo"><a th:href="@{/client/index}"><img th:src="@{/images/logot3h.png}" alt="T3HShop"></a></div>
                 </div>
                 <div class="col-md-10 col-sm-10">
                     <div class="header_top">
@@ -40,6 +40,7 @@
                                         <a href="#" class="log">
                                             Chào người dùng <div sec:authentication="name"></div>
                                         </a>
+                                        <input type="hidden" id="username" th:value="${username}"></input>
                                     </li>
                                 </ul>
                             </div>
@@ -49,19 +50,19 @@
                     <div class="header_bottom">
                         <ul class="option">
                             <li class="option-cart">
-                                <a th:href="@{/client/cart}" class="cart-icon"></a>
+                                <a th:href="@{/client/cart/{username}(username=${#authentication.name})}" class="cart-icon"></a>
                             </li>
                         </ul>
                         <div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div>
                         <div class="navbar-collapse collapse">
                             <ul class="nav navbar-nav">
                                 <li><a th:href="@{/client/index}">Home</a></li>
-                                <li class="active"><a th:href="@{/client/phone}">Phone</a></li>
-                                <li><a th:href="@{/client/laptop}">Laptop</a></li>
-                                <li><a th:href="@{/client/tablet}">Tablet</a></li>
-                                <li><a th:href="@{/client/watch}">Watch</a></li>
-                                <li><a th:href="@{/client/accessory}">Phụ kiện</a></li>
-                                <li><a th:href="@{/client/news}">Tin tức</a></li>
+                                <li class="active"><a th:href="@{/client/phone/{username}(username=${#authentication.name})}">Phone</a></li>
+                                <li><a th:href="@{/client/laptop/{username}(username=${#authentication.name})}">Laptop</a></li>
+                                <li><a th:href="@{/client/tablet/{username}(username=${#authentication.name})}">Tablet</a></li>
+                                <li><a th:href="@{/client/watch/{username}(username=${#authentication.name})}">Watch</a></li>
+                                <li><a th:href="@{/client/accessory/{username}(username=${#authentication.name})}">Phụ kiện</a></li>
+                                <li><a th:href="@{/client/news/{username}(username=${#authentication.name})}">Tin tức</a></li>
                             </ul>
                         </div>
                     </div>
@@ -164,7 +165,9 @@
                                     </h2>
                                 </div>
                                 <div class="button_group">
-                                    <button class="btn btn-primary">Add To Cart</button>
+                                    <a href="#">
+                                        <button class="btn btn-primary">Thêm vào giỏ</button>
+                                    </a>
                                 </div>
                             </div>
                         </div>

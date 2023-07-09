@@ -8,10 +8,11 @@ import t3h.project.java.shop.Product.Model.Product;
 @Data
 @ToString
 public class CreateCartItemDto {
-        private Integer id;
-        private Integer cartId;
-        private Integer userId;
+        private Long id;
+        private Long productId;
+        private String productName;
+        private String customerName;
+        private Long customerId;
         private Integer quantity;
-        private CreateProductDto productDto;
         private Float price;
 }

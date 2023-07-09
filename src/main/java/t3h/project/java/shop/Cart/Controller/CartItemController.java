@@ -16,8 +16,8 @@ public class CartItemController {
         this.cartItemService = cartItemService;
     }
 
-    @GetMapping("/add-to-cart/{productId}/{quantity}/{name}")
-    public ResponseEntity<Object> addToCard(@PathVariable  Long productId,@PathVariable Integer quantity,@PathVariable String name){
+    @GetMapping("/add-to-cart/{productId}/{quantity}")
+    public ResponseEntity<Object> addToCart(@PathVariable  Long productId,@PathVariable Integer quantity,@PathVariable String name){
         CartItem cartItem=cartItemService.addItems(productId,quantity,name);
         return ResponseHandler.getResponse(cartItem, HttpStatus.OK);
     }
