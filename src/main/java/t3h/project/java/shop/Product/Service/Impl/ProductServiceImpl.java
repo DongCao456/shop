@@ -76,7 +76,7 @@ public class ProductServiceImpl extends GenericServiceImpl<Product,Long> impleme
         List<Product> products=new ArrayList<>();
 
         int lastRowNum=sheet.getLastRowNum();
-        int startRow=4;
+        int startRow=3;
         for (int i=startRow;i<=lastRowNum;i++){
             Product product = new Product();
             Row row=sheet.getRow(i);
@@ -88,10 +88,12 @@ public class ProductServiceImpl extends GenericServiceImpl<Product,Long> impleme
             product.setDescription(cellDescription.getStringCellValue());
 
             Cell cellPrice=row.getCell(3);
-            product.setPrice(Float.parseFloat(cellPrice.getStringCellValue()));
+            Double priceDouble=cellPrice.getNumericCellValue();
+            product.setPrice(priceDouble.floatValue());
 
             Cell cellQuantity=row.getCell(4);
-            product.setQuantity(Integer.parseInt(cellQuantity.getStringCellValue()));
+            Double quantityDouble=cellQuantity.getNumericCellValue();
+            product.setQuantity(quantityDouble.intValue());
 
             Cell cellBrand=row.getCell(5);
             Optional<Brand> optionalBrand=brandService.findByName(cellBrand.getStringCellValue());
@@ -106,7 +108,13 @@ public class ProductServiceImpl extends GenericServiceImpl<Product,Long> impleme
             }
 
             Cell cellImage=row.getCell(7);
-            product.setImage(cellImage.getStringCellValue());
+            if(cellImage == null){
+                product.setImage(" ");
+            }
+            else {
+                product.setImage(cellImage.getStringCellValue());
+            }
+
 
             products.add(product);
         }

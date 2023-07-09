@@ -12,4 +12,8 @@ public interface CartItemService extends GenericService<CartItem,Long> {
     List<CartItem> listCartItems(User user);
 
     CartItem addItems(Long productId, Integer quantity, String name);
+
+    void removeItems(Long cartItemId);
+
+    CartItem updateItems(Long productId,Integer quantity, String name);
 }

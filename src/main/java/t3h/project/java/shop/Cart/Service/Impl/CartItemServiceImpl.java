@@ -43,11 +43,14 @@ public class CartItemServiceImpl extends GenericServiceImpl<CartItem,Long> imple
         Optional<Product> product=productService.findById(productId);
         //Optional<User> user=userService.findByUsername(name);
         Optional<Customer> customer=customerService.findByUsername(name);
-        CartItem cartItem=cartItemRepository.findByUserAndProduct(customer.get(),product.get());
+        CartItem cartItem=cartItemRepository.findByCustomerAndProduct(customer.get(),product.get());
 
         if(cartItem != null){
+            Float priceAvailable=cartItem.getPrice();
             addQuantity=cartItem.getQuantity() + quantity;
             cartItem.setQuantity(addQuantity);
+            cartItem.setPrice((addQuantity * priceAvailable) / cartItem.getQuantity());
+
         }else {
             cartItem=new CartItem();
             cartItem.setPrice(product.get().getPrice() * quantity);
@@ -56,6 +59,30 @@ public class CartItemServiceImpl extends GenericServiceImpl<CartItem,Long> imple
             cartItem.setCustomer(customer.get());
         }
 
+        return cartItemRepository.save(cartItem);
+    }
+
+    @Override
+    public void removeItems(Long cartItemId) {
+         cartItemRepository.deleteById(cartItemId);
+    }
+
+    @Override
+    public CartItem updateItems(Long productId, Integer quantity, String name) {
+        Integer addQuantity=quantity;
+        Optional<Product> product=productService.findById(productId);
+        //Optional<User> user=userService.findByUsername(name);
+        Optional<Customer> customer=customerService.findByUsername(name);
+        CartItem cartItem=cartItemRepository.findByCustomerAndProduct(customer.get(),product.get());
+        Float priceAvailable=cartItem.getPrice();
+        addQuantity=cartItem.getQuantity() + quantity;
+
+        if(cartItem != null){
+            addQuantity=cartItem.getQuantity() + quantity;
+            cartItem.setQuantity(addQuantity);
+            cartItem.setPrice((addQuantity * priceAvailable) / cartItem.getQuantity());
+
+        }
         return cartItemRepository.save(cartItem);
     }
 
