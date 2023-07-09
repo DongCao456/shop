@@ -244,6 +244,7 @@ public class AdminController {
     }
     @PostMapping("/saveBrand")
     public String saveBrand(@ModelAttribute(name = "brand")CreateBrandDto brandDto){
+        System.out.println(brandDto);
         brandService.update(brandDto);
         return "redirect:/admin/brand";
     }
@@ -255,7 +256,6 @@ public class AdminController {
     @GetMapping("/form-update-brand/{id}")
     public String getFormUpdateBrand(@PathVariable("id") Long id, Model model){
         CreateBrandDto brandDto = brandService.findBrandDtoById(id);
-        System.out.println(brandDto.getUrl());
         model.addAttribute("brand", brandDto);
         return "admin/brand-update";
     }

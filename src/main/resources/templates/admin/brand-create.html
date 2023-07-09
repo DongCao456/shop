@@ -21,9 +21,9 @@
         <input type="text" th:field="*{description}" id="inputDesc" placeholder="Mô tả" class="form-control mb-4 col-4">
 
         <label for="inputURL">Đường dẫn: </label>
-        <input type="number" th:field="*{url}" placeholder="Đường dẫn" id="inputURL" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{url}" placeholder="Đường dẫn" id="inputURL" class="form-control mb-4 col-4">
 
-        <button type="submit" class="btn btn-info col-2">Cập nhật</button>
+        <button type="submit" class="btn btn-info col-2">Thêm</button>
     </form>
     <hr>
     <a th:href="@{/admin/brand}">Quay lại</a>

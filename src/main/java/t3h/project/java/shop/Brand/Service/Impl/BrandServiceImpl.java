@@ -104,5 +104,6 @@ public class BrandServiceImpl extends GenericServiceImpl<Brand,Long> implements 
     @Override
     public void update(CreateBrandDto brandDto) {
         Brand brand = modelMapper.map(brandDto, Brand.class);
+        repository.save(brand);
     }
 }
