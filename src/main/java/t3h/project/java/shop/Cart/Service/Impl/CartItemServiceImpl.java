@@ -41,22 +41,21 @@ public class CartItemServiceImpl extends GenericServiceImpl<CartItem,Long> imple
     public CartItem addItems(Long productId, Integer quantity,String name) {
         Integer addQuantity=quantity;
         Optional<Product> product=productService.findById(productId);
-        //Optional<User> user=userService.findByUsername(name);
-        Optional<Customer> customer=customerService.findByUsername(name);
-        CartItem cartItem=cartItemRepository.findByCustomerAndProduct(customer.get(),product.get());
+        Optional<User> user=userService.findByUsername(name);
+        //Optional<Customer> customer=customerService.findByUsername(name);
+        CartItem cartItem=cartItemRepository.findByUserAndProduct(user.get(),product.get());
 
         if(cartItem != null){
             Float priceAvailable=cartItem.getPrice();
             addQuantity=cartItem.getQuantity() + quantity;
             cartItem.setQuantity(addQuantity);
-            cartItem.setPrice((addQuantity * priceAvailable) / cartItem.getQuantity());
 
         }else {
             cartItem=new CartItem();
             cartItem.setPrice(product.get().getPrice() * quantity);
             cartItem.setQuantity(quantity);
             cartItem.setProduct(product.get());
-            cartItem.setCustomer(customer.get());
+            cartItem.setUser(user.get());
         }
 
         return cartItemRepository.save(cartItem);
@@ -71,16 +70,15 @@ public class CartItemServiceImpl extends GenericServiceImpl<CartItem,Long> imple
     public CartItem updateItems(Long productId, Integer quantity, String name) {
         Integer addQuantity=quantity;
         Optional<Product> product=productService.findById(productId);
-        //Optional<User> user=userService.findByUsername(name);
-        Optional<Customer> customer=customerService.findByUsername(name);
-        CartItem cartItem=cartItemRepository.findByCustomerAndProduct(customer.get(),product.get());
+        Optional<User> user=userService.findByUsername(name);
+        //Optional<Customer> customer=customerService.findByUsername(name);
+        CartItem cartItem=cartItemRepository.findByUserAndProduct(user.get(),product.get());
         Float priceAvailable=cartItem.getPrice();
         addQuantity=cartItem.getQuantity() + quantity;
 
         if(cartItem != null){
             addQuantity=cartItem.getQuantity() + quantity;
             cartItem.setQuantity(addQuantity);
-            cartItem.setPrice((addQuantity * priceAvailable) / cartItem.getQuantity());
 
         }
         return cartItemRepository.save(cartItem);

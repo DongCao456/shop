@@ -16,6 +16,7 @@ import t3h.project.java.shop.User.Model.User;
 public class CartItem extends AbstractEntity {
 
     @OneToOne(cascade = CascadeType.ALL)
+
     @JoinTable(name = "cart_product",
             joinColumns =
                     { @JoinColumn(name = "cart_id", referencedColumnName = "id") },

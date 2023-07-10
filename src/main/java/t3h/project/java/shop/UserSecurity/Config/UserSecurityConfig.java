@@ -70,14 +70,16 @@ public class UserSecurityConfig {
     //    }
 
     @Bean
-    @Order(1)
     public SecurityFilterChain userSecurityFilterChain(HttpSecurity httpSecurity) throws Exception{
         httpSecurity.authenticationProvider(authenticationProvider());
-        httpSecurity.securityMatcher(AntPathRequestMatcher.antMatcher("/admin/**"));
+
         httpSecurity.authorizeHttpRequests(autoConfig -> {
-                    autoConfig.requestMatchers(HttpMethod.GET,"/admin/index").authenticated();
-                    autoConfig.anyRequest().authenticated();
-                })
+            autoConfig.requestMatchers("/**","/ALLCSS/**").permitAll();
+        });
+
+
+        //httpSecurity.securityMatcher(AntPathRequestMatcher.antMatcher("/admin/**"));
+        httpSecurity
                 .formLogin(login -> {
                     login.loginPage("/admin/login");
                     login.defaultSuccessUrl("/admin/index");
@@ -86,43 +88,58 @@ public class UserSecurityConfig {
                 })
                 .logout(logout -> {
                     logout.logoutRequestMatcher(new AntPathRequestMatcher("/admin/logout"));
-                    logout.logoutSuccessUrl("/admin/login");
+                    logout.logoutSuccessUrl("/admin/index");
                     logout.deleteCookies("JSESSIONID");
-                    logout.invalidateHttpSession(true);
                 });
 
         return httpSecurity.build();
     }
 
-    @Bean
-    @Order(2)
-    public SecurityFilterChain customerSecurityFilterChain(HttpSecurity httpSecurity) throws Exception{
-        httpSecurity.authenticationProvider(authenticationProvider1());
-        httpSecurity.authorizeHttpRequests(autoConfig -> {
-            autoConfig.requestMatchers("/*","/ALLCSS/**").permitAll();
-        });
+//    @Bean
+//    @Order(2)
+//    public SecurityFilterChain customerSecurityFilterChain(HttpSecurity httpSecurity) throws Exception{
+//        httpSecurity.authenticationProvider(authenticationProvider());
+//        httpSecurity.authorizeHttpRequests(autoConfig -> {
+//            autoConfig.requestMatchers("/*","/ALLCSS/**").permitAll();
+//        });
+//
+//        httpSecurity.securityMatcher(AntPathRequestMatcher.antMatcher("/client/**"));
+//        httpSecurity.authorizeHttpRequests(autoConfig -> {
+//                    autoConfig.requestMatchers(HttpMethod.GET,"/client/cart/**").authenticated();
+//                    autoConfig.requestMatchers(HttpMethod.GET,"/client/index").permitAll();
+//                    autoConfig.anyRequest().authenticated();
+//                })
+//                .formLogin(login -> {
+//                    login.loginPage("/client/login");
+//                    login.defaultSuccessUrl("/client/index");
+//                    login.failureUrl("/login-error");
+//                    login.permitAll();
+//                })
+//                .logout(logout -> {
+//                    logout.logoutRequestMatcher(new AntPathRequestMatcher("/client/logout"));
+//                    logout.logoutSuccessUrl("/client/login");
+//                    logout.deleteCookies("JSESSIONID");
+//                    logout.invalidateHttpSession(true);
+//                });
+//
+//
+//        return httpSecurity.build();
+//    }
 
-        httpSecurity.securityMatcher(AntPathRequestMatcher.antMatcher("/client/**"));
-        httpSecurity.authorizeHttpRequests(autoConfig -> {
-                    autoConfig.requestMatchers(HttpMethod.GET,"/client/index").authenticated();
-                    autoConfig.anyRequest().authenticated();
-                })
-                .formLogin(login -> {
-                    login.loginPage("/client/login");
-                    login.defaultSuccessUrl("/client/index");
-                    login.failureUrl("/login-error");
-                    login.permitAll();
-                })
-                .logout(logout -> {
-                    logout.logoutRequestMatcher(new AntPathRequestMatcher("/client/logout"));
-                    logout.logoutSuccessUrl("/client/login");
-                    logout.deleteCookies("JSESSIONID");
-                    logout.invalidateHttpSession(true);
-                });
 
-
-        return httpSecurity.build();
-    }
+//    @Bean
+//    @Order(3)
+//    public SecurityFilterChain allFilterChain(HttpSecurity httpSecurity) throws Exception{
+//
+//
+//        httpSecurity.authorizeHttpRequests(autoConfig -> {
+//                    autoConfig.requestMatchers(HttpMethod.GET,"/*","/ALLCSS/**").permitAll();
+//                    autoConfig.anyRequest().authenticated();
+//                });
+//
+//
+//        return httpSecurity.build();
+//    }
 
 
 

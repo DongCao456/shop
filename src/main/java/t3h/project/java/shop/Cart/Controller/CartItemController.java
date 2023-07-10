@@ -10,17 +10,25 @@ import t3h.project.java.shop.Cart.Model.CartItem;
 import t3h.project.java.shop.Cart.Service.CartItemService;
 import t3h.project.java.shop.CommonData.model.IAuthenticationFacade;
 import t3h.project.java.shop.CommonData.model.ResponseHandler;
+import t3h.project.java.shop.User.Model.User;
+import t3h.project.java.shop.User.Service.UserService;
 
 import java.security.Principal;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/cart")
+@RequestMapping("/client/cart")
 @AllArgsConstructor
 public class CartItemController {
     private CartItemService cartItemService;
+    private UserService userService;
 
     @GetMapping("/add-to-cart/{productId}/{quantity}/{name}")
     public ResponseEntity<Object> addToCard(@PathVariable  Long productId, @PathVariable Integer quantity,@PathVariable String name){
+        Optional<User> user=userService.findByUsername(name);
+        if (!user.isPresent()){
+            return ResponseHandler.getResponse("UserName is invalid",HttpStatus.BAD_REQUEST);
+        }
         CartItem cartItem=cartItemService.addItems(productId,quantity,name);
         return ResponseHandler.getResponse(cartItem, HttpStatus.OK);
     }

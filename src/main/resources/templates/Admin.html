@@ -3,15 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="@{/ALLCSS/test-index-css.css}">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script th:src="@{/ALLCSS/index.js}"></script>
 </head>
 <body>
-<div>HELLO EVERYONE</div>
-<div sec:authorize="hasRole('EMPLOYEE')">Text visible to MANAGER.</div>
-Authenticated username:
-<div sec:authentication="name"></div>
-<p>Roles: <span sec:authentication="principal.authorities"> </span></p>
-<form th:action="@{/admin/logout}" method="post">
-    <input type="submit" value="Logout" />
-</form>
+
+<!--<div sec:authorize="hasRole('EMPLOYEE')">Text visible to MANAGER.</div>-->
+<!--Authenticated username:-->
+<!--<div sec:authentication="name"></div>-->
+<!--<p>Roles: <span sec:authentication="principal.authorities"> </span></p>-->
+<div sec:authorize="!isAuthenticated()">
+    <label  id="lblUserName"></label>
+    <a th:href="@{/admin/login}">Login</a>
+</div>
+
+<div sec:authorize="isAuthenticated()">
+    <div sec:authorize="hasRole('ROLE_MANAGER')">Text visible to HIGH.</div>
+    Authenticated username:
+    <label sec:authentication="name" id="lblUserName"></label>
+    <p>Roles: <span sec:authentication="principal.authorities"> </span></p>
+</div>
+<div sec:authorize="hasRole('ROLE_MANAGER')">
+    This content is only shown to administrators.
+</div>
+<div sec:authorize="hasRole('ROLE_EMPLOYEE')">
+    This content is only shown to users.
+</div>
+<div sec:authorize="isAuthenticated()">
+    <form th:action="@{/admin/logout}" method="post">
+        <input type="submit" value="Logout" />
+    </form>
+</div>
+
+
+<div class="container d-flex justify-content-center mt-50 mb-50">
+
+    <div class="row" id="rowProduct">
+
+    </div>
+</div>
 </body>
 </html>

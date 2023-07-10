@@ -20,13 +20,18 @@ public class AdminController {
 
     @GetMapping("/index")
     public String indexPage(Principal principal, Model model){
-        if(principal == null){
-            return "redirect:/admin/login";
-        }
+//        if(principal == null){
+//            return "redirect:/admin/login";
+//        }
 
-        Optional<User> user=service.findByUsername(principal.getName());
-        model.addAttribute("user",user.get());
+//        Optional<User> user=service.findByUsername(principal.getName());
+//        model.addAttribute("user",user.get());
 
         return "Admin";
+    }
+
+    @GetMapping("/home")
+    public String indexPage2(){
+        return "Index2";
     }
 }
