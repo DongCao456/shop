@@ -17,10 +17,9 @@
 <!--<div sec:authentication="name"></div>-->
 <!--<p>Roles: <span sec:authentication="principal.authorities"> </span></p>-->
 <div sec:authorize="!isAuthenticated()">
-    <label  id="lblUserName"></label>
     <a th:href="@{/admin/login}">Login</a>
 </div>
-
+<a th:href="@{/admin/home}">My Cart</a>
 <div sec:authorize="isAuthenticated()">
     <div sec:authorize="hasRole('ROLE_MANAGER')">Text visible to HIGH.</div>
     Authenticated username:

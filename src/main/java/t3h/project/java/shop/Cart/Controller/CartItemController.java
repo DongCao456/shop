@@ -14,10 +14,11 @@ import t3h.project.java.shop.User.Model.User;
 import t3h.project.java.shop.User.Service.UserService;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/client/cart")
+@RequestMapping("/api/cart")
 @AllArgsConstructor
 public class CartItemController {
     private CartItemService cartItemService;
@@ -27,7 +28,7 @@ public class CartItemController {
     public ResponseEntity<Object> addToCard(@PathVariable  Long productId, @PathVariable Integer quantity,@PathVariable String name){
         Optional<User> user=userService.findByUsername(name);
         if (!user.isPresent()){
-            return ResponseHandler.getResponse("UserName is invalid",HttpStatus.BAD_REQUEST);
+            return ResponseHandler.getResponse("UserName is invalid",HttpStatus.NOT_FOUND);
         }
         CartItem cartItem=cartItemService.addItems(productId,quantity,name);
         return ResponseHandler.getResponse(cartItem, HttpStatus.OK);
@@ -44,5 +45,15 @@ public class CartItemController {
     public  ResponseEntity<Object> deleteCart(@PathVariable Long id){
         cartItemService.deleteById(id);
         return ResponseHandler.getResponse(HttpStatus.OK);
+    }
+
+    @GetMapping("/{name}")
+    public ResponseEntity<Object> listCartItemByUser(@PathVariable String name){
+        Optional<User> user=userService.findByUsername(name);
+        if (!user.isPresent()){
+            return ResponseHandler.getResponse("UserName is invalid",HttpStatus.NOT_FOUND);
+        }
+        List<CartItem> cartItemList=cartItemService.listCartItems(user.get());
+        return ResponseHandler.getResponse(cartItemList, HttpStatus.OK);
     }
 }
