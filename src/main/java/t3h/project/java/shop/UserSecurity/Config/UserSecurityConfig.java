@@ -63,18 +63,20 @@ public class UserSecurityConfig {
         return authenticationProvider;
     }
 
-    //    @Bean
-    //    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception{
-    //        return configuration.getAuthenticationManager();
-    //
-    //    }
+//        @Bean
+//        public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception{
+//            return configuration.getAuthenticationManager();
+//
+//        }
 
     @Bean
     public SecurityFilterChain userSecurityFilterChain(HttpSecurity httpSecurity) throws Exception{
         httpSecurity.authenticationProvider(authenticationProvider());
 
         httpSecurity.authorizeHttpRequests(autoConfig -> {
-            autoConfig.requestMatchers("/**","/ALLCSS/**").permitAll();
+            autoConfig.requestMatchers("/admin/index","/ALLCSS/**").permitAll()
+                    .requestMatchers("/api/product").permitAll()
+                    .anyRequest().authenticated();
         });
 
 

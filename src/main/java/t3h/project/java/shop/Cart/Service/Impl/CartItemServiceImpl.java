@@ -48,7 +48,9 @@ public class CartItemServiceImpl extends GenericServiceImpl<CartItem,Long> imple
         if(cartItem != null){
             Float priceAvailable=cartItem.getPrice();
             addQuantity=cartItem.getQuantity() + quantity;
+            Float priceAdded=(addQuantity * priceAvailable) / cartItem.getQuantity();
             cartItem.setQuantity(addQuantity);
+            cartItem.setPrice(priceAdded);
 
         }else {
             cartItem=new CartItem();
@@ -73,13 +75,13 @@ public class CartItemServiceImpl extends GenericServiceImpl<CartItem,Long> imple
         Optional<User> user=userService.findByUsername(name);
         //Optional<Customer> customer=customerService.findByUsername(name);
         CartItem cartItem=cartItemRepository.findByUserAndProduct(user.get(),product.get());
-        Float priceAvailable=cartItem.getPrice();
-        addQuantity=cartItem.getQuantity() + quantity;
+
 
         if(cartItem != null){
-            addQuantity=cartItem.getQuantity() + quantity;
-            cartItem.setQuantity(addQuantity);
-
+            Float priceAvailable=cartItem.getPrice();
+            Float priceAdded=(quantity * priceAvailable) / cartItem.getQuantity();
+            cartItem.setQuantity(quantity);
+            cartItem.setPrice(priceAdded);
         }
         return cartItemRepository.save(cartItem);
     }
