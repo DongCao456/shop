@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 import t3h.project.java.shop.User.Model.Role;
 import t3h.project.java.shop.User.Model.User;
 import t3h.project.java.shop.User.Repository.UserRepository;
@@ -18,7 +19,7 @@ import java.util.Optional;
 import java.util.Set;
 
 
-
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
@@ -28,13 +29,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserService service;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> optionalUser=service.findByUsername(username);
-        if (!optionalUser.isPresent())
+        User user=service.findByUsername(username);
+        if (user.equals(null))
             throw new UsernameNotFoundException("Username is invalid");
 
-        Set<GrantedAuthority> authorities=getAuthorities(optionalUser.get().getRoles());
+        Set<GrantedAuthority> authorities=getAuthorities(user.getRoles());
 
-        return new UserDetailsDto(optionalUser.get().getUsername(),optionalUser.get().getPassword(),authorities);
+        return new UserDetailsDto(user.getUsername(),user.getPassword(),authorities);
     }
 
     public Set<GrantedAuthority> getAuthorities(Set<Role> roles){

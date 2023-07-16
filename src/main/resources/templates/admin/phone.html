@@ -29,7 +29,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <ul class="topmenu">
-                                    <li><form th:action="@{/admin/logout}" method="post">
+                                    <li><form th:action="@{/logout}" method="post">
                                         <input type="submit" value="Logout" />
                                     </form></li>
                                 </ul>
@@ -57,8 +57,8 @@
                                 <li><a th:href="@{/admin/watch}">Watch</a></li>
                                 <li><a th:href="@{/admin/accessory}">Phụ kiện</a></li>
                                 <li><a th:href="@{/admin/brand}">Thương hiệu</a></li>
-                                <li><a th:href="@{/admin/news}">Tin tức</a></li>
                                 <li><a th:href="@{/admin/account}">Tài khoản</a></li>
+                                <li><a th:href="@{/admin/product}">Dữ liệu</a></li>
                             </ul>
                         </div>
                     </div>
@@ -154,8 +154,8 @@
                             <input type="number" class="form-control" id="price">
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="brand">Thương hiệu:</label>
-                            <input type="text" class="form-control" id="brand">
+                            <label for="brandName">Thương hiệu:</label>
+                            <input type="text" class="form-control" id="brandName">
                         </div>
                     </div>
                     <button id="btnSearch" onclick="searchCondition(0,5)" class="btn btn-primary">Tìm kiếm</button>
@@ -416,7 +416,7 @@
         let filter = {};
         filter.name= $("#name").val() === '' ? null : $("#name").val();
         filter.price = $("#price").val() === '' ? null : $("#price").val();
-        filter.brandId = $("#brand").val() === '' ? null : $("#brand").val();
+        filter.brandName = $("#brandName").val() === '' ? null : $("#brandName").val();
         getPhones(page,size,filter);
     }
 

@@ -29,7 +29,7 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <ul class="topmenu">
-                                    <li><form th:action="@{/admin/logout}" method="post">
+                                    <li><form th:action="@{/logout}" method="post">
                                         <input type="submit" value="Logout" />
                                     </form></li>
                                 </ul>
@@ -57,8 +57,8 @@
                                 <li><a th:href="@{/admin/watch}">Watch</a></li>
                                 <li><a th:href="@{/admin/accessory}">Phụ kiện</a></li>
                                 <li class="active"><a th:href="@{/admin/brand}">Thương hiệu</a></li>
-                                <li><a th:href="@{/admin/news}">Tin tức</a></li>
                                 <li><a th:href="@{/admin/account}">Tài khoản</a></li>
+                                <li><a th:href="@{/admin/product}">Dữ liệu</a></li>
                             </ul>
                         </div>
                     </div>
@@ -159,7 +159,6 @@
                             <th>Mã thương hiệu</th>
                             <th style="width: 15%;">Tên thương hiệu</th>
                             <th>Hình ảnh</th>
-                            <th style="width: 10%;">Mô tả</th>
                             <th>Đường dẫn</th>
                             <th>Hành động</th>
                         </tr>
@@ -169,6 +168,14 @@
                         </tbody>
                     </table>
                     <a th:href="@{/admin/form-create-brand}" class="btn btn-primary btn-sm mb-3"> Thêm thương hiệu mới</a>
+                    <form th:action="@{/admin/importBrand}" method="post" enctype="multipart/form-data" class="my-form">
+                        <div class="form-group">
+                            <label for="file">Chọn file import:</label>
+                            <br>
+                            <input type="file" class="form-control-file" id="file" name="file" />
+                        </div>
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </form>
                     <nav aria-label="...">
                         <ul class="pagination" id="pageId" style="float: right;">
                             <!--            <li class="page-item">-->
@@ -357,7 +364,6 @@
                         '<td>' + data.id + '</td>' +
                         '<td style="width: 15%;">' + data.name + '</td>' +
                         '<td>' + '<img style="width: 50px;height: 50px" src="' + data.image + '">' + '</td>' +
-                        '<td>' + data.description + '</td>' +
                         '<td>' + data.url + '</td>';
                     row +=
                         '<td> <a class="btn btn-warning" onclick="editProduct(' + data.id + ')" href="#">Sửa</a> ' +

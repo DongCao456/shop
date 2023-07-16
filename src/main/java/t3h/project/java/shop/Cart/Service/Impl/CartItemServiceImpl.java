@@ -13,10 +13,9 @@ import t3h.project.java.shop.Cart.Repository.CartItemRepository;
 import t3h.project.java.shop.Cart.Service.CartItemService;
 import t3h.project.java.shop.CommonData.generic.GenericServiceImpl;
 import t3h.project.java.shop.CommonData.model.BaseResponse;
-import t3h.project.java.shop.Customer.Model.Customer;
-import t3h.project.java.shop.Customer.Service.CustomerService;
 import t3h.project.java.shop.Product.Model.Product;
 import t3h.project.java.shop.Product.Service.ProductService;
+import t3h.project.java.shop.User.Model.User;
 import t3h.project.java.shop.User.Service.UserService;
 
 import java.util.List;
@@ -28,42 +27,68 @@ public class CartItemServiceImpl extends GenericServiceImpl<CartItem,Long> imple
 
     private final ProductService productService;
     private final UserService userService;
-    private final CustomerService customerService;
 
     private final CartItemRepository cartItemRepository;
     private final ModelMapper modelMapper;
 
-    public CartItemServiceImpl(ProductService productService, UserService userService, CustomerService customerService, CartItemRepository cartItemRepository, ModelMapper modelMapper) {
+    public CartItemServiceImpl(ProductService productService, UserService userService, CartItemRepository cartItemRepository, ModelMapper modelMapper) {
         this.productService = productService;
         this.userService = userService;
-        this.customerService = customerService;
         this.cartItemRepository = cartItemRepository;
         this.modelMapper = modelMapper;
     }
 
     @Override
-    public List<CartItem> listCartItems(Customer customer) {
-        return cartItemRepository.findByCustomer(customer);
+    public List<CartItem> listCartItems(User user) {
+        return cartItemRepository.findByUser(user);
     }
 
     @Override
     public CartItem addItems(Long productId, Integer quantity,String username) {
         Integer addQuantity=quantity;
         Optional<Product> product=productService.findById(productId);
-        Optional<Customer> customer=customerService.findByUsername(username);
-        CartItem cartItem=cartItemRepository.findByCustomerAndProduct(customer.get(),product.get());
+        User user=userService.findByUsername(username);
+
+
+        CartItem cartItem=cartItemRepository.findByUserAndProduct(user,product.get());
 
         if(cartItem != null){
+            System.out.println("YES " + cartItem.getQuantity());
             addQuantity=cartItem.getQuantity() + quantity;
             cartItem.setQuantity(addQuantity);
+            cartItem.setPrice(product.get().getPrice() * addQuantity);
         }else {
+            System.out.println("NO " + addQuantity);
             cartItem=new CartItem();
             cartItem.setPrice(product.get().getPrice() * quantity);
             cartItem.setQuantity(quantity);
             cartItem.setProduct(product.get());
-            cartItem.setCustomer(customer.get());
+            cartItem.setUser(user);
         }
 
+        return cartItemRepository.save(cartItem);
+    }
+    @Override
+    public void removeItems(Long cartItemId) {
+        cartItemRepository.deleteById(cartItemId);
+    }
+
+    @Override
+    public CartItem updateItems(Long productId, Integer quantity, String name) {
+        Integer addQuantity=quantity;
+        Optional<Product> product=productService.findById(productId);
+        //Optional<User> user=userService.findByUsername(name);
+        User user=userService.findByUsername(name);
+        CartItem cartItem=cartItemRepository.findByUserAndProduct(user, product.get());
+        Float priceAvailable=cartItem.getPrice();
+        addQuantity=cartItem.getQuantity() + quantity;
+
+        if(cartItem != null){
+            addQuantity=cartItem.getQuantity() + quantity;
+            cartItem.setQuantity(addQuantity);
+            cartItem.setPrice((addQuantity * priceAvailable) / cartItem.getQuantity());
+
+        }
         return cartItemRepository.save(cartItem);
     }
 
@@ -74,10 +99,12 @@ public class CartItemServiceImpl extends GenericServiceImpl<CartItem,Long> imple
             List<CreateCartItemDto> cartItemDtos = cartItems.getContent().stream()
                     .map(cartItem -> {
                         CreateCartItemDto cartItemDto = modelMapper.map(cartItem, CreateCartItemDto.class);
-                        cartItemDto.setCustomerName(cartItem.getCustomer().getFullName());
-                        cartItemDto.setCustomerId(cartItem.getCustomer().getId());
+                        cartItemDto.setUserName(cartItem.getUser().getFullName());
+                        cartItemDto.setImage(cartItem.getProduct().getImage());
+                        cartItemDto.setUserId(cartItem.getUser().getId());
                         cartItemDto.setProductId(cartItem.getProduct().getId());
                         cartItemDto.setProductName(cartItem.getProduct().getName());
+                        System.out.println(cartItemDto.getProductName());
                         return cartItemDto;
                     })
                     .collect(Collectors.toList());

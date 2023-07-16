@@ -27,9 +27,9 @@ public class UserController {
         return ResponseHandler.getResponse(list, HttpStatus.OK);
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<Object> save(@RequestBody CreateUserDto createUserDto){
-        User user= userService.createUser(createUserDto);
-        return ResponseHandler.getResponse(user, HttpStatus.OK);
-    }
+//    @PostMapping("/save")
+//    public ResponseEntity<Object> save(@RequestBody CreateUserDto createUserDto){
+//        User user= userService.createUser(createUserDto);
+//        return ResponseHandler.getResponse(user, HttpStatus.OK);
+//    }
 }

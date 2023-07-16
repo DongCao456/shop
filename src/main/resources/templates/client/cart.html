@@ -21,49 +21,49 @@
        <div class="header">
           <div class="container">
              <div class="row">
-                <div class="col-md-2 col-sm-2">
-                   <div class="logo"><a th:href="@{/client/index}"><img th:src="@{/images/logot3h.png}" alt="T3HShop"></a></div>
-                </div>
-                <div class="col-md-10 col-sm-10">
-                   <div class="header_top">
-                       <div class="row">
-                           <div class="col-md-6">
-                               <ul class="topmenu">
-                                   <li><form th:action="@{/client/logout}" method="post">
-                                       <input type="submit" value="Logout" />
-                                   </form></li>
-                               </ul>
-                           </div>
-                           <div class="col-md-3">
-                               <ul class="usermenu">
-                                   <li>
-                                       <a href="#" class="log">
-                                           Chào người dùng <div sec:authentication="name"></div>
-                                       </a>
-                                       <input type="hidden" id="username" th:value="${username}"></input>
-                                   </li>
-                               </ul>
-                           </div>
-                       </div>
-                   </div>
-                   <div class="clearfix"></div>
-                   <div class="header_bottom">
-                    <ul class="option">
-                      <li class="option-cart">
-                          <a th:href="@{/client/cart(username=${#authentication.name})}" class="cart-icon"></a>
-                      </li>
-                    </ul>
-                      <div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div>
-                      <div class="navbar-collapse collapse">
-                          <ul class="nav navbar-nav">
-                              <li><a th:href="@{/client/index}">Home</a></li>
-                              <li><a th:href="@{/client/phone(username=${#authentication.name})}">Phone</a></li>
-                              <li><a th:href="@{/client/laptop(username=${#authentication.name})}">Laptop</a></li>
-                              <li><a th:href="@{/client/tablet(username=${#authentication.name})}">Tablet</a></li>
-                              <li><a th:href="@{/client/watch(username=${#authentication.name})}">Watch</a></li>
-                              <li><a th:href="@{/client/accessory(username=${#authentication.name})}">Phụ kiện</a></li>
-                              <li><a th:href="@{/client/news(username=${#authentication.name})}">Tin tức</a></li>
-                          </ul>
+                 <div class="col-md-2 col-sm-2">
+                     <div class="logo"><a th:href="@{/index}"><img th:src="@{/images/logot3h.png}" alt="T3HShop"></a></div>
+                 </div>
+                 <div class="col-md-10 col-sm-10">
+                     <div class="header_top">
+                         <div class="row">
+                             <div class="col-md-6">
+                                 <ul class="topmenu">
+                                     <li><form th:action="@{/logout}" method="post">
+                                         <input type="submit" value="Logout" />
+                                     </form></li>
+                                 </ul>
+                             </div>
+                             <div class="col-md-3">
+                                 <ul class="usermenu">
+                                     <li>
+                                         <a href="#" class="log">
+                                             Chào người dùng <div sec:authentication="name"></div>
+                                         </a>
+                                         <input type="hidden" id="username" th:value="${username}"></input>
+                                     </li>
+                                 </ul>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="clearfix"></div>
+                     <div class="header_bottom">
+                         <ul class="option">
+                             <li class="option-cart">
+                                 <a th:href="@{/{username}/cart(username=${#authentication.name})}" class="cart-icon"></a>
+                             </li>
+                         </ul>
+                         <div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div>
+                         <div class="navbar-collapse collapse">
+                             <ul class="nav navbar-nav">
+                                 <li><a th:href="@{/index}">Home</a></li>
+                                 <li><a th:href="@{/{username}/phone(username=${#authentication.name})}">Phone</a></li>
+                                 <li><a th:href="@{/{username}/laptop(username=${#authentication.name})}">Laptop</a></li>
+                                 <li><a th:href="@{/{username}/tablet(username=${#authentication.name})}">Tablet</a></li>
+                                 <li><a th:href="@{/{username}/watch(username=${#authentication.name})}">Watch</a></li>
+                                 <li><a th:href="@{/{username}/accessory(username=${#authentication.name})}">Phụ kiện</a></li>
+                                 <li><a th:href="@{/{username}/order(username=${#authentication.name})}">Đơn hàng</a></li>
+                             </ul>
                       </div>
                    </div>
                 </div>
@@ -87,6 +87,22 @@
               </h3>
               <div class="clearfix">
               </div>
+                <div class="form-row">
+                    <div class="col-md-4 mb-3">
+                        <label for="productName">Tên sản phẩm:</label>
+                        <input type="text" class="form-control" id="productName">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="price">Giá sản phẩm:</label>
+                        <input type="number" class="form-control" id="price">
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="quantity">Số lượng:</label>
+                        <input type="number" class="form-control" id="quantity">
+                    </div>
+                </div>
+                <button id="btnSearch" onclick="searchCondition(0,5)" class="btn btn-primary">Tìm kiếm</button>
+                <hr>
               <!-- Bảng thông tin ở đây -->
                 <table class="table" id="tableDate">
                     <thead>
@@ -94,10 +110,8 @@
                         <th>Mã sản phẩm</th>
                         <th style="width: 15%;">Tên sản phẩm</th>
                         <th>Hình ảnh</th>
-                        <th>Giá sản phẩm</th>
-                        <th>Thương hiệu</th>
-                        <th>Loại sản phẩm</th>
                         <th>Số lượng</th>
+                        <th>Chi phí</th>
                         <th>Hành động</th>
                     </tr>
                     </thead>
@@ -177,10 +191,10 @@
                       <label>
                         Nhập mã giảm giá (nếu có):
                       </label>
-                      <input type="text" name="">
+                      <input type="text" id="code">
                       <div class="clearfix">
                       </div>
-                      <button>
+                      <button href="#">
                         Xác nhận
                       </button>
                     </form>
@@ -193,18 +207,18 @@
                         Phí ship
                       </h5>
                       <span>
-                        $1.000.00
+                        đ30.000
                       </span>
                     </div>
                     <div class="grandtotal">
                       <h5>
                         Tổng chi phí
                       </h5>
-                      <span>
-                        $1.000.00
+                      <span id="total">
+
                       </span>
                     </div>
-                    <button>
+                    <button onclick="checkout()" href="#">
                       Xác nhận đơn hàng
                     </button>
                   </div>
@@ -353,6 +367,7 @@
 
 <script>
     // vừa load xong trang web sẽ chạy luôn
+    var username = $("#username").val();
     $(document).ready(function (){
         initData();
     })
@@ -367,31 +382,36 @@
     }
 
     function getPhones(page, size, objectFilter) {
+        var totalSpan = $("#total");
         let bodyTable = $('#tableDate > tbody');
         bodyTable.empty();
         $.ajax({
             type: "POST",
-            url: "http://localhost:8080/cart?page=" + page + "&size=" + size,
+            url: "http://localhost:8080/cart/" + username + "?page=" + page + "&size=" + size,
             contentType: "application/json",
             data: JSON.stringify(objectFilter),
             dataType: "json",
             success: function (response) {
+                let total = 30000;
                 console.log(response);
                 let products = response?.data?.content;
                 for (let i = 0; i < products.length; i++) {
                     data = products[i];
                     let row = '<tr>' +
-                        '<td>' + data.id + '</td>' +
-                        '<td style="width: 15%;">' + data.name + '</td>' +
+                        '<td>' + data.productId + '</td>' +
+                        '<td style="width: 15%;">' + data.productName + '</td>' +
                         '<td>' + '<img style="width: 50px;height: 50px" src="' + data.image + '">' + '</td>' +
-                        '<td>' + data.description + '</td>' +
-                        '<td>' + data.url + '</td>';
+                        '<td>' + data.quantity + '</td>' +
+                        '<td>' + data.price + '</td>';
                     row +=
-                        '<td> <a class="btn btn-warning" onclick="editCartItem(' + data.id + ')" href="#">Cập nhật</a> ' +
-                        '<a style="margin-left: 10%" class="btn btn-danger" onclick="addToOrder(' + data.id + ')" href="#">Thêm vào đơn hàng</a> </td>' +
+                        '<td> ' +
+                        '<a style="margin-left: 10%" class="btn btn-warning no-border" onclick="addToOrder(' + data.id + ')" href="#">Cập nhật thông tin</a> ' +
+                        '<a style="margin-left: 10%" class="btn btn-danger" onclick="deleteCartItem(' + data.id + ')" href="#">Xoá sản phẩm</a> </td>' +
                         '</tr>'
                     $('#tableDate').append(row);
+                    total += data.price;
                 }
+                totalSpan.text("đ" + total);
 
                 // Phân trang
                 let totalPage = response.data.totalPages;
@@ -420,18 +440,78 @@
             }
         })
     }
-    function editCartItem(id) {
-        window.location.href = "http://localhost:8080/admin/form-update-brand/" + id;
+    function updateCartItem(id) {
+        window.location.href = "http://localhost:8080/" + username + "/updateCart/" + id;
     }
+
+    function deleteCartItem(id) {
+        var username = $("#username").val();
+        $.ajax({
+            type: "DELETE",
+            url: "http://localhost:8080/delete-cart/" + id,
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function(response) {
+                alert('Xoá thành công!');
+                window.location.href = "http://localhost:8080/" + username + "/cart";
+            },
+            error: function(error) {
+                alert("Error");
+            }
+        });
+    }
+
     function addToOrder(id) {
-        window.location.href = "http://localhost:8080/admin/deleteBrand/" + id;
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/add-to-cart/" + id + "/1/" + username,
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function(response) {
+                alert('Thêm vào đơn hàng thành công!');
+                window.location.href = "http://localhost:8080/" + username + "/cart";
+            },
+            error: function(error) {
+                alert("Error");
+            }
+        });
     }
+    function checkout(){
+        var username = $("#username").val();
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8080/checkout/" + username,
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function(response) {
+                alert('Tạo đơn hàng thành công!');
+                window.location.href = "http://localhost:8080/" + username + "/order";
+            },
+            error: function(error) {
+                alert("Error");
+            }
+        });
+    }
+    function discount() {
+        var code = $("#code").val();
+        if (code === "123") {
+            var total = parseFloat($("#total").text());
+            if (!isNaN(total)) {
+                total -= 30000;
+                $("#total").text(total);
+            }
+        }
+    }
+
+
+
+
 
     function searchCondition(page,size){
         let filter = {};
-        filter.name= $("#name").val() === '' ? null : $("#name").val();
+        filter.productName= $("#productName").val() === '' ? null : $("#productName").val();
         filter.price = $("#price").val() === '' ? null : $("#price").val();
-        filter.brandId = $("#brandId").val() === '' ? null : $("#brandId").val();
+        filter.quantity = $("#quantity").val() === '' ? null : $("#quantity").val();
         getPhones(page,size,filter);
     }
 

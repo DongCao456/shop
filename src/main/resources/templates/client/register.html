@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <title>Register</title>
+</head>
+<body>
+<div class="container">
+    <h1>Đăng ký tài khoản</h1>
+    <hr>
+    <form action="#" th:action="@{/save}" th:object="${user}" method="POST">
+        <label for="inputName">Nhập họ tên: </label>
+        <input type="text" th:field="*{fullName}" id="inputName" placeholder="Họ tên" class="form-control mb-4 col-4">
+
+        <label for="inputEmail">Nhập email: </label>
+        <input type="text" th:field="*{email}" id="inputEmail" placeholder="Email" class="form-control mb-4 col-4">
+
+        <label for="inputAddress">Nhập địa chỉ: </label>
+        <input type="text" th:field="*{address}" id="inputAddress" placeholder="Địa chỉ" class="form-control mb-4 col-4">
+
+        <label for="inputDistrict">Nhập quận/huyện: </label>
+        <input type="text" th:field="*{district}" placeholder="Quận/huyện" id="inputDistrict" class="form-control mb-4 col-4">
+
+        <label for="inputCity">Nhập thành phố:</label>
+        <input type="text" id="inputCity" th:field="*{city}" placeholder="Thành phố" class="form-control mb-4 col-4">
+
+        <label for="inputPhone">Nhập số điện thoại:</label>
+        <input type="number" th:field="*{phone}" id="inputPhone" placeholder="Số điện thoại" class="form-control mb-4 col-4">
+
+        <label for="inputUsername">Nhập tên tài khoản: </label>
+        <input type="text" th:field="*{username}" placeholder="Tên tài khoản" id="inputUsername" class="form-control mb-4 col-4">
+
+        <label for="inputPassword">Nhập mật khẩu:</label>
+        <input type="text" id="inputPassword" th:field="*{password}" placeholder="Mật khẩu" class="form-control mb-4 col-4">
+
+        <button type="submit" class="btn btn-info col-2">Xác nhận</button>
+    </form>
+    <hr>
+    <a th:href="@{/login}">Quay lại</a>
+</div>
+</body>
+</html>

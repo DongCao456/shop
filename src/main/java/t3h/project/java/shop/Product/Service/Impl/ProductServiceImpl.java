@@ -1,12 +1,20 @@
 package t3h.project.java.shop.Product.Service.Impl;
 
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.modelmapper.ModelMapper;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ResourceUtils;
+import org.springframework.web.multipart.MultipartFile;
 import t3h.project.java.shop.Brand.Dto.CreateBrandDto;
 import t3h.project.java.shop.Brand.Model.Brand;
 import t3h.project.java.shop.Brand.Repository.BrandRepository;
@@ -23,10 +31,17 @@ import t3h.project.java.shop.Product.Repository.ProductRepository;
 import t3h.project.java.shop.Product.Service.ProductService;
 import t3h.project.java.shop.Utils.MapDtoToModel;
 
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static org.springframework.util.ResourceUtils.getFile;
 
 @Service
 public class ProductServiceImpl extends GenericServiceImpl<Product,Long> implements ProductService {
@@ -61,21 +76,190 @@ public class ProductServiceImpl extends GenericServiceImpl<Product,Long> impleme
     public Product saveNew(CreateProductDto dto) {
         Product model=new Product();
         model=mapper.map(dto,model);
-
         Optional<Brand> optionalBrand=brandService.findByName(dto.getBrandName());
         if(optionalBrand.isPresent()){
-//            model.setBrands();
-            /*
-            MODIFY THIS !!!
-             */
+            model.setBrand(optionalBrand.get());
         }
-
         Optional<Category> optionalCategory=cateService.findByName(dto.getCateName());
         if(optionalCategory.isPresent()){
             model.setCategory(optionalCategory.get());
         }
-
         return productRepository.save(model);
+    }
+    @SneakyThrows
+    @Override
+    public BaseResponse importProductExcel(MultipartFile file) {
+        InputStream inputStream= null;
+        try {
+            inputStream=file.getInputStream();
+        }catch (IOException e){
+            return BaseResponse.builder().code(HttpStatus.BAD_REQUEST.value()).build();
+        }
+
+        Workbook workbook= null;
+        try {
+            workbook=new XSSFWorkbook(inputStream);
+        }catch (IOException e){
+            return BaseResponse.builder().code(HttpStatus.BAD_REQUEST.value()).build();
+        }
+
+        Sheet sheet=workbook.getSheetAt(0);
+
+        List<Product> products=new ArrayList<>();
+
+        int lastRowNum=sheet.getLastRowNum();
+        int startRow=3;
+        for (int i=startRow;i<=lastRowNum;i++){
+            Product product = new Product();
+            Row row=sheet.getRow(i);
+
+            Cell cellName=row.getCell(1);
+            product.setName(cellName.getStringCellValue());
+
+            String name = cellName.getStringCellValue();
+
+            Cell cellDescription=row.getCell(2);
+            product.setDescription(cellDescription.getStringCellValue());
+
+            Cell cellPrice=row.getCell(3);
+            Double priceDouble=cellPrice.getNumericCellValue();
+            product.setPrice(priceDouble.floatValue());
+
+            Cell cellQuantity=row.getCell(4);
+            Double quantityDouble=cellQuantity.getNumericCellValue();
+            product.setQuantity(quantityDouble.intValue());
+
+            Cell cellBrand=row.getCell(5);
+            Optional<Brand> optionalBrand=brandService.findByName(cellBrand.getStringCellValue());
+            product.setBrand(optionalBrand.get());
+
+            Cell cellCategory=row.getCell(6);
+            Optional<Category> optionalCategory=cateService.findByName(cellCategory.getStringCellValue());
+            product.setCategory(optionalCategory.get());
+
+            Cell cellImage=row.getCell(7);
+            product.setImage(cellImage.getStringCellValue());
+            if(productRepository.findProductByName(name) != null){
+               Product p = productRepository.findProductByName(name);
+               p.setQuantity(p.getQuantity() + product.getQuantity());
+               productRepository.save(p);
+            }
+            else{
+                products.add(product);
+            }
+        }
+
+        productRepository.saveAll(products);
+
+        return BaseResponse.builder().code(HttpStatus.OK.value()).message(HttpStatus.OK.name()).build();
+    }
+
+    private static Workbook getWorkbook(File file) {
+        Workbook workbook = null;
+
+        try {
+            workbook = new XSSFWorkbook(new FileInputStream(file));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return workbook;
+    }
+
+    private static File getFile() {
+        File file = null;
+        try {
+            file = ResourceUtils.getFile("C:\\Users\\Admin\\Desktop\\ProductExport.xlsx");
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return file;
+    }
+
+    private static CellStyle getCellStyle(Workbook workbook) {
+        CellStyle cellStyle = workbook.createCellStyle();
+        Font font = workbook.createFont();
+//        font.setFontHeight((short) 16);
+        cellStyle.setFont(font);
+        return cellStyle;
+    }
+
+    private static void writeDataToRow(CellStyle cellStyle, int i, Row row, Product product) {
+        System.out.println(product);
+        Cell cellNumber = row.createCell(0);
+        cellNumber.setCellValue(i + 1);
+        cellNumber.setCellStyle(cellStyle);
+
+        Cell cellName = row.createCell(1);
+        cellName.setCellValue(product.getName());
+        cellName.setCellStyle(cellStyle);
+
+        Cell cellDesc = row.createCell(2);
+        cellDesc.setCellValue(product.getDescription());
+        cellDesc.setCellStyle(cellStyle);
+
+        Cell cellPrice = row.createCell(3);
+        cellPrice.setCellValue(product.getPrice());
+        cellPrice.setCellStyle(cellStyle);
+
+        Cell cellQuantity = row.createCell(4);
+        cellQuantity.setCellValue(product.getQuantity());
+        cellQuantity.setCellStyle(cellStyle);
+
+        Cell cellBrand = row.createCell(5);
+        cellBrand.setCellValue(product.getBrand().getName());
+        cellBrand.setCellStyle(cellStyle);
+
+        Cell cellCate = row.createCell(6);
+        cellCate.setCellValue(product.getCategory().getName());
+        cellCate.setCellStyle(cellStyle);
+
+        Cell cellImage = row.createCell(7);
+        cellImage.setCellValue(product.getImage());
+        cellImage.setCellStyle(cellStyle);
+
+    }
+    private static void writeContentToFile(File file, Workbook workbook) {
+        try (OutputStream outputStream = new FileOutputStream(file)) {
+            workbook.write(outputStream);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private static byte[] getBytes(File file) {
+        Path path = Paths.get(file.toURI());
+        byte[] bytes =new byte[0];
+        try {
+            bytes = Files.readAllBytes(path);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return bytes;
+    }
+    @Override
+    public Resource export() {
+
+        File file = getFile();
+
+        List<Product> products = productRepository.findAll();
+
+        Workbook workbook = getWorkbook(file);
+
+        Sheet sheet = workbook.getSheetAt(0);
+        CellStyle cellStyle = getCellStyle(workbook);
+        int startRow = 3;
+        for (int i = 0; i < products.size(); i++) {
+            Row row = sheet.createRow(startRow++);
+            Product product = products.get(i);
+            writeDataToRow(cellStyle, i, row, product);
+        }
+
+        writeContentToFile(file, workbook);
+
+        byte[] bytes = getBytes(file);
+
+        Resource resource = new ByteArrayResource(bytes);
+        return resource;
     }
 
     @Override
@@ -104,15 +288,15 @@ public class ProductServiceImpl extends GenericServiceImpl<Product,Long> impleme
     @Override
     public BaseResponse<Page<CreateProductDto>> getAllByCategory(ProductFilterRequest filterRequest, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        System.out.println(filterRequest.getCateName());
+        System.out.println(filterRequest.getCategoryId());
         Page<Product> productEntities = productRepository.findAllByCategory(filterRequest,pageable);
         List<CreateProductDto> productDTOs = productEntities.getContent().stream()
                 .map(productEntity -> {
                     CreateProductDto productDto = modelMapper.map(productEntity, CreateProductDto.class);
 //                    System.out.println(productEntity.getBrand().getName());
                     productDto.setBrandName(productEntity.getBrand().getName());
-                    productDto.setImage(productEntity.getImage());
                     productDto.setCateName(productEntity.getCategory().getName());
+                    System.out.println(productDto);
                     return productDto;
                 })
                 .collect(Collectors.toList());

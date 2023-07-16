@@ -1,6 +1,7 @@
 package t3h.project.java.shop.Product.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import t3h.project.java.shop.Brand.Model.Brand;
@@ -28,12 +29,14 @@ public class Product extends AbstractEntity {
     private CartItem cart;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "category_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private Category category;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "brand_id")
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

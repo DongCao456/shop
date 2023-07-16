@@ -8,8 +8,8 @@ public class CartItemFilterRequest {
     private Long id;
     private Long productId;
     private String productName;
-    private String customerName;
-    private Long customerId;
+    private String username;
+    private Long userId;
     private Integer quantity;
     private Float price;
 }

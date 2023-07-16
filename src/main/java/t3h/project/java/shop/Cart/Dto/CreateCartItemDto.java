@@ -11,8 +11,9 @@ public class CreateCartItemDto {
         private Long id;
         private Long productId;
         private String productName;
-        private String customerName;
-        private Long customerId;
+        private String image;
+        private String userName;
+        private Long userId;
         private Integer quantity;
         private Float price;
 }

@@ -20,6 +20,7 @@ public class WatchResource {
                                                                  @RequestParam(name = "page",required = false,defaultValue = "0") int page,
                                                                  @RequestParam(name = "size",required = false,defaultValue = "10") int size){
         filterRequest.setCategoryId(4);
+        System.out.println(filterRequest.getBrandName());
         return ResponseEntity.ok(service.getAllByCategory(filterRequest, page, size));
     }
 

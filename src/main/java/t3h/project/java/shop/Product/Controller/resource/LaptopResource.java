@@ -2,6 +2,7 @@ package t3h.project.java.shop.Product.Controller.resource;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import t3h.project.java.shop.CommonData.model.BaseResponse;
 import t3h.project.java.shop.Product.Dto.CreateProductDto;
@@ -15,6 +16,7 @@ public class LaptopResource {
     public LaptopResource(ProductService service) {
         this.service = service;
     }
+
     @PostMapping()
     public ResponseEntity<BaseResponse<Page<CreateProductDto>>> getAll(@RequestBody ProductFilterRequest filterRequest,
                                                                  @RequestParam(name = "page",required = false,defaultValue = "0") int page,

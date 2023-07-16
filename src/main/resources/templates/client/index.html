@@ -23,14 +23,14 @@
             <div class="container">
                <div class="row">
                   <div class="col-md-2 col-sm-2">
-                     <div class="logo"><a th:href="@{/client/index}"><img th:src="@{/images/logot3h.png}" alt="T3HShop"></a></div>
+                     <div class="logo"><a th:href="@{/index}"><img th:src="@{/images/logot3h.png}" alt="T3HShop"></a></div>
                   </div>
                   <div class="col-md-10 col-sm-10">
                      <div class="header_top">
                         <div class="row">
                            <div class="col-md-6">
                               <ul class="topmenu">
-                                 <li><form th:action="@{/client/logout}" method="post">
+                                 <li><form th:action="@{/logout}" method="post">
                                     <input type="submit" value="Logout" />
                                  </form></li>
                               </ul>
@@ -39,7 +39,7 @@
                               <ul class="usermenu">
                                  <li>
                                     <a href="#" class="log">
-                                       Chào người dùng <div sec:authentication="name" th:text="${#authentication.name}"></div>
+                                       Chào người dùng <div sec:authentication="name"></div>
                                     </a>
                                     <input type="hidden" id="username" th:value="${username}"></input>
                                  </li>
@@ -51,19 +51,19 @@
                      <div class="header_bottom">
                         <ul class="option">
                            <li class="option-cart">
-                              <a th:href="@{/client/cart/{username}(username=${#authentication.name})}" class="cart-icon"></a>
+                              <a th:href="@{/{username}/cart(username=${#authentication.name})}" class="cart-icon"></a>
                            </li>
                         </ul>
                         <div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button></div>
                         <div class="navbar-collapse collapse">
                            <ul class="nav navbar-nav">
-                              <li class="active"><a th:href="@{/client/index/{username}(username=${#authentication.name})}">Home</a></li>
-                              <li><a th:href="@{/client/phone/{username}(username=${#authentication.name})}">Phone</a></li>
-                              <li><a th:href="@{/client/laptop/{username}(username=${#authentication.name})}">Laptop</a></li>
-                              <li><a th:href="@{/client/tablet/{username}(username=${#authentication.name})}">Tablet</a></li>
-                              <li><a th:href="@{/client/watch/{username}(username=${#authentication.name})}">Watch</a></li>
-                              <li><a th:href="@{/client/accessory/{username}(username=${#authentication.name})}">Phụ kiện</a></li>
-                              <li><a th:href="@{/client/news/{username}(username=${#authentication.name})}">Tin tức</a></li>
+                              <li class="active"><a th:href="@{/index}">Home</a></li>
+                              <li><a th:href="@{/{username}/phone(username=${#authentication.name})}">Phone</a></li>
+                              <li><a th:href="@{/{username}/laptop(username=${#authentication.name})}">Laptop</a></li>
+                              <li><a th:href="@{/{username}/tablet(username=${#authentication.name})}">Tablet</a></li>
+                              <li><a th:href="@{/{username}/watch(username=${#authentication.name})}">Watch</a></li>
+                              <li><a th:href="@{/{username}/accessory(username=${#authentication.name})}">Phụ kiện</a></li>
+                              <li><a th:href="@{/{username}/order(username=${#authentication.name})}">Đơn hàng</a></li>
                            </ul>
                         </div>
                      </div>

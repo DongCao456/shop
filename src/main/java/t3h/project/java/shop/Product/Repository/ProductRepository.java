@@ -53,6 +53,11 @@ public interface ProductRepository extends JpaRepository<Product,Long> {
             "where p.id = :id")
     Product findProductById(@Param("id") Long id);
 
+    @Query(value = "select p from Product p " +
+            "where lower(p.name) = lower(:name)")
+    Product findProductByName(@Param("name") String name);
+
+
     @Query("SELECT p FROM Product p " +
             "INNER JOIN p.category c " +
             "LEFT JOIN p.brand b " +
