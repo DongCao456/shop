@@ -107,12 +107,12 @@
                 <table class="table" id="tableDate">
                     <thead>
                     <tr>
-                        <th>Mã sản phẩm</th>
-                        <th style="width: 15%;">Tên sản phẩm</th>
-                        <th>Hình ảnh</th>
-                        <th>Số lượng</th>
-                        <th>Chi phí</th>
-                        <th>Hành động</th>
+                        <th style="font-size: 15px">Mã sản phẩm</th>
+                        <th style="width: 15%; font-size: 15px">Tên sản phẩm</th>
+                        <th style="font-size: 15px">Hình ảnh</th>
+                        <th style="font-size: 15px">Số lượng</th>
+                        <th style="font-size: 15px">Chi phí</th>
+                        <th style="text-align: center; font-size: 15px">Hành động</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -401,14 +401,18 @@
                         '<td>' + data.productId + '</td>' +
                         '<td style="width: 15%;">' + data.productName + '</td>' +
                         '<td>' + '<img style="width: 50px;height: 50px" src="' + data.image + '">' + '</td>' +
-                        '<td>' + data.quantity + '</td>' +
+                        '<td>' + '<input type="number" id="quantity_' + data.productId + '" value="' + (data.quantity || 0) + '" onchange="updateCartItem(' + data.productId + ', this.value)">' + '</td>' +
                         '<td>' + data.price + '</td>';
+
                     row +=
                         '<td> ' +
-                        '<a style="margin-left: 10%" class="btn btn-warning no-border" onclick="addToOrder(' + data.id + ')" href="#">Cập nhật thông tin</a> ' +
+                        '<a style="margin-left: 10%" class="btn btn-warning no-border" onclick="updateCartItem(' + data.productId + ', document.getElementById(\'quantity_' + data.productId + '\').value)" href="#">Cập nhật thông tin</a> ' +
                         '<a style="margin-left: 10%" class="btn btn-danger" onclick="deleteCartItem(' + data.id + ')" href="#">Xoá sản phẩm</a> </td>' +
-                        '</tr>'
+                        '</tr>';
+
                     $('#tableDate').append(row);
+
+
                     total += data.price;
                 }
                 totalSpan.text("đ" + total);
@@ -440,9 +444,17 @@
             }
         })
     }
-    function updateCartItem(id) {
-        window.location.href = "http://localhost:8080/" + username + "/updateCart/" + id;
+    function updateCartItem(productId, quantity) {
+        let url = "http://localhost:8080/" + username + "/update-cart/" + productId + "/" + quantity;
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function () {
+                location.reload();
+            }
+        });
     }
+
 
     function deleteCartItem(id) {
         var username = $("#username").val();
@@ -453,22 +465,6 @@
             dataType: "json",
             success: function(response) {
                 alert('Xoá thành công!');
-                window.location.href = "http://localhost:8080/" + username + "/cart";
-            },
-            error: function(error) {
-                alert("Error");
-            }
-        });
-    }
-
-    function addToOrder(id) {
-        $.ajax({
-            type: "GET",
-            url: "http://localhost:8080/add-to-cart/" + id + "/1/" + username,
-            contentType: "application/json;charset=utf-8",
-            dataType: "json",
-            success: function(response) {
-                alert('Thêm vào đơn hàng thành công!');
                 window.location.href = "http://localhost:8080/" + username + "/cart";
             },
             error: function(error) {
@@ -492,21 +488,6 @@
             }
         });
     }
-    function discount() {
-        var code = $("#code").val();
-        if (code === "123") {
-            var total = parseFloat($("#total").text());
-            if (!isNaN(total)) {
-                total -= 30000;
-                $("#total").text(total);
-            }
-        }
-    }
-
-
-
-
-
     function searchCondition(page,size){
         let filter = {};
         filter.productName= $("#productName").val() === '' ? null : $("#productName").val();

@@ -44,7 +44,6 @@ public class OrderItemsServiceImpl extends GenericServiceImpl<OrderItems,Long> i
                     orderItemDto.setPriceOfOne(orderItemsEntity.getProduct().getPrice());
                     orderItemDto.setProductName(orderItemsEntity.getProduct().getName());
                     orderItemDto.setProductId(orderItemsEntity.getProduct().getId());
-                    System.out.println(orderItemDto.getPriceOfOne());
                     return orderItemDto;
                 })
                 .collect(Collectors.toList());

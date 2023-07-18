@@ -53,12 +53,10 @@ public class CartItemServiceImpl extends GenericServiceImpl<CartItem,Long> imple
         CartItem cartItem=cartItemRepository.findByUserAndProduct(user,product.get());
 
         if(cartItem != null){
-            System.out.println("YES " + cartItem.getQuantity());
             addQuantity=cartItem.getQuantity() + quantity;
             cartItem.setQuantity(addQuantity);
             cartItem.setPrice(product.get().getPrice() * addQuantity);
         }else {
-            System.out.println("NO " + addQuantity);
             cartItem=new CartItem();
             cartItem.setPrice(product.get().getPrice() * quantity);
             cartItem.setQuantity(quantity);
@@ -75,19 +73,13 @@ public class CartItemServiceImpl extends GenericServiceImpl<CartItem,Long> imple
 
     @Override
     public CartItem updateItems(Long productId, Integer quantity, String name) {
-        Integer addQuantity=quantity;
         Optional<Product> product=productService.findById(productId);
-        //Optional<User> user=userService.findByUsername(name);
         User user=userService.findByUsername(name);
         CartItem cartItem=cartItemRepository.findByUserAndProduct(user, product.get());
-        Float priceAvailable=cartItem.getPrice();
-        addQuantity=cartItem.getQuantity() + quantity;
-
+        Float price = product.get().getPrice();
         if(cartItem != null){
-            addQuantity=cartItem.getQuantity() + quantity;
-            cartItem.setQuantity(addQuantity);
-            cartItem.setPrice((addQuantity * priceAvailable) / cartItem.getQuantity());
-
+            cartItem.setQuantity(quantity);
+            cartItem.setPrice(quantity * price);
         }
         return cartItemRepository.save(cartItem);
     }
@@ -104,7 +96,6 @@ public class CartItemServiceImpl extends GenericServiceImpl<CartItem,Long> imple
                         cartItemDto.setUserId(cartItem.getUser().getId());
                         cartItemDto.setProductId(cartItem.getProduct().getId());
                         cartItemDto.setProductName(cartItem.getProduct().getName());
-                        System.out.println(cartItemDto.getProductName());
                         return cartItemDto;
                     })
                     .collect(Collectors.toList());

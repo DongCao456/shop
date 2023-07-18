@@ -35,9 +35,13 @@ public class CartItemController {
         CartItem cartItem=cartItemService.addItems(productId,quantity,name);
         return ResponseHandler.getResponse(cartItem, HttpStatus.OK);
     }
-    @GetMapping("/update-cart/{productId}/{quantity}/{name}")
-    public ResponseEntity<Object> updateCart(@PathVariable Long productId, @PathVariable Integer quantity,@PathVariable String name){
-        CartItem cartItem=cartItemService.updateItems(productId,quantity,name);
+    @GetMapping("/{username}/update-cart/{cartItemId}/{quantity}")
+    public ResponseEntity<Object> updateCart(
+            @PathVariable String username,
+            @PathVariable Long cartItemId,
+            @PathVariable Integer quantity
+    ) {
+        CartItem cartItem = cartItemService.updateItems(cartItemId, quantity, username);
         return ResponseHandler.getResponse(cartItem, HttpStatus.OK);
     }
 

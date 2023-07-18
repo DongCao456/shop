@@ -219,7 +219,6 @@ public class UserServiceImpl extends GenericServiceImpl<User,Long> implements Us
                         }
                     }
                     userDto.setRoles(userDto.getRoleDtos().toString());
-                    System.out.println(userDto.getRoles());
                     return userDto;
                 })
                 .collect(Collectors.toList());

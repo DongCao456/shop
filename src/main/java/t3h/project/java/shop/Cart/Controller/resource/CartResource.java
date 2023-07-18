@@ -39,7 +39,6 @@ public class CartResource {
             @RequestParam(name = "size", required = false, defaultValue = "10") int size) {
 
         User user = userService.findByUsername(username);
-        System.out.println(username);
         filterRequest.setUserId(user.getId());
         filterRequest.setUsername(user.getUsername());
         return ResponseEntity.ok(cartItemService.getAll(filterRequest, page, size));

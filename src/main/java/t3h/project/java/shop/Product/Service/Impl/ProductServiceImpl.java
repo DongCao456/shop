@@ -178,7 +178,6 @@ public class ProductServiceImpl extends GenericServiceImpl<Product,Long> impleme
     private static CellStyle getCellStyle(Workbook workbook) {
         CellStyle cellStyle = workbook.createCellStyle();
         Font font = workbook.createFont();
-//        font.setFontHeight((short) 16);
         cellStyle.setFont(font);
         return cellStyle;
     }
@@ -325,7 +324,6 @@ public class ProductServiceImpl extends GenericServiceImpl<Product,Long> impleme
     public BaseResponse<Page<CreateProductDto>> getAll(ProductFilterRequest filterRequest, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<Product> productEntities = productRepository.findAllByFilter(filterRequest, pageable);
-        System.out.println(productEntities.getTotalElements());
 
         List<CreateProductDto> productDTOs = productEntities.getContent().stream()
                 .map(productEntity -> {

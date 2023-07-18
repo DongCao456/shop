@@ -58,8 +58,6 @@ public class OrderServiceImpl extends GenericServiceImpl<Order,Long> implements 
             orderItems.setProduct(cartItem.getProduct());
             orderItems.setPrice(cartItem.getPrice());
             orderItems.setQuantity(cartItem.getQuantity());
-
-
             orderItemsRepository.save(orderItems);
             order.addItems(orderItems);
             cartItemService.deleteById(cartItem.getId());
