@@ -381,6 +381,16 @@
         getPhones(page,size,objFilter);
     }
 
+    function changeQuantity(id,quantity){
+        var x = document.getElementById("quantity_"+id);
+        if(Number(x.value) < 1 || Number(x.value) > 20){
+            x.value=quantity;
+        }
+        else{
+            x.value=x.value;
+        }
+    }
+
     function getPhones(page, size, objectFilter) {
         var totalSpan = $("#total");
         let bodyTable = $('#tableDate > tbody');
@@ -401,7 +411,7 @@
                         '<td>' + data.productId + '</td>' +
                         '<td style="width: 15%;">' + data.productName + '</td>' +
                         '<td>' + '<img style="width: 50px;height: 50px" src="' + data.image + '">' + '</td>' +
-                        '<td>' + '<input type="number" id="quantity_' + data.productId + '" value="' + (data.quantity || 0) + '" onchange="updateCartItem(' + data.productId + ', this.value)">' + '</td>' +
+                        '<td>' + '<input type="number"  id="quantity_' + data.productId + '" value="' + (data.quantity || 0) + '" onchange="updateCartItem(' + data.productId + ', this.value,'+data.quantity+')">' + '</td>' +
                         '<td>' + data.price + '</td>';
 
                     row +=
@@ -444,15 +454,23 @@
             }
         })
     }
-    function updateCartItem(productId, quantity) {
+    function updateCartItem(productId, quantity,oldQuantity) {
         let url = "http://localhost:8080/" + username + "/update-cart/" + productId + "/" + quantity;
-        $.ajax({
+         var x = document.getElementById("quantity_"+productId);
+        if(Number(x.value) < 1 ){
+            x.value=oldQuantity;
+            alert("Không được số âm");
+        }
+        else{
+            $.ajax({
             url: url,
             type: 'GET',
             success: function () {
                 location.reload();
             }
         });
+        }
+
     }
 
 

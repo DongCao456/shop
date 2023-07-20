@@ -138,7 +138,14 @@ public class ProductServiceImpl extends GenericServiceImpl<Product,Long> impleme
             product.setCategory(optionalCategory.get());
 
             Cell cellImage=row.getCell(7);
-            product.setImage(cellImage.getStringCellValue());
+            if(cellImage == null){
+                product.setImage(" ");
+            }
+            else {
+                product.setImage(cellImage.getStringCellValue());
+            }
+
+
             if(productRepository.findProductByName(name) != null){
                Product p = productRepository.findProductByName(name);
                p.setQuantity(p.getQuantity() + product.getQuantity());
@@ -360,6 +367,7 @@ public class ProductServiceImpl extends GenericServiceImpl<Product,Long> impleme
         Product product = modelMapper.map(productDto, Product.class);
         product.setId(productDto.getId());
         product.setBrand(brandService.findBrandByName(productDto.getBrandName()));
+        product.setImage(productDto.getImage());
         product.setCategory(cateService.findCateByName(productDto.getCateName()));
         productRepository.save(product);
     }
